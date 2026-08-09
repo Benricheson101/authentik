@@ -43,6 +43,7 @@ class AuthenticatorValidateStageSerializer(StageSerializer):
             "sms_otp_throttling_factor",
             "totp_otp_throttling_factor",
             "static_otp_throttling_factor",
+            "telegram_otp_throttling_factor",
         ]
 
 

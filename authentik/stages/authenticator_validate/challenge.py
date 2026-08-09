@@ -35,6 +35,7 @@ from authentik.stages.authenticator.models import Device, ThrottlingMixin
 from authentik.stages.authenticator_duo.models import AuthenticatorDuoStage, DuoDevice
 from authentik.stages.authenticator_email.models import EmailDevice
 from authentik.stages.authenticator_sms.models import SMSDevice
+from authentik.stages.authenticator_telegram.models import TelegramDevice
 from authentik.stages.authenticator_validate.models import AuthenticatorValidateStage, DeviceClasses
 from authentik.stages.authenticator_webauthn.models import UserVerification, WebAuthnDevice
 from authentik.stages.authenticator_webauthn.stage import PLAN_CONTEXT_WEBAUTHN_CHALLENGE
@@ -126,6 +127,8 @@ def select_challenge(request: HttpRequest, device: Device):
         select_challenge_sms(request, device)
     elif isinstance(device, EmailDevice):
         select_challenge_email(request, device)
+    elif isinstance(device, TelegramDevice):
+        select_challenge_telegram(request, device)
 
 
 def select_challenge_sms(request: HttpRequest, device: SMSDevice):
@@ -139,6 +142,12 @@ def select_challenge_email(request: HttpRequest, device: EmailDevice):
     valid_secs: int = timedelta_from_string(device.stage.token_expiry).total_seconds()
     device.generate_token(valid_secs=valid_secs)
     device.stage.send(device)
+
+
+def select_challenge_telegram(request: HttpRequest, device: TelegramDevice):
+    """Send Telegram message"""
+    device.generate_token()
+    device.stage.send(request, device.token, device)
 
 
 def validate_challenge_code(code: str, stage_view: StageView, user: User) -> Device:

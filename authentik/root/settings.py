@@ -125,6 +125,7 @@ TENANT_APPS = [
     "authentik.stages.authenticator_email",
     "authentik.stages.authenticator_sms",
     "authentik.stages.authenticator_static",
+    "authentik.stages.authenticator_telegram",
     "authentik.stages.authenticator_totp",
     "authentik.stages.authenticator_validate",
     "authentik.stages.authenticator_webauthn",

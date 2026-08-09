@@ -22,6 +22,7 @@ class DeviceClasses(models.TextChoices):
     DUO = "duo", _("Duo")
     SMS = "sms", _("SMS")
     EMAIL = "email", _("Email")
+    TELEGRAM = "telegram", _("Telegram")
 
     @staticmethod
     def from_model_label(model_label: str) -> DeviceClasses:
@@ -39,6 +40,7 @@ def default_device_classes() -> list:
         DeviceClasses.DUO,
         DeviceClasses.SMS,
         DeviceClasses.EMAIL,
+        DeviceClasses.TELEGRAM,
     ]
 
 
@@ -96,6 +98,7 @@ class AuthenticatorValidateStage(Stage):
     sms_otp_throttling_factor = models.FloatField(default=1)
     totp_otp_throttling_factor = models.FloatField(default=1)
     static_otp_throttling_factor = models.FloatField(default=1)
+    telegram_otp_throttling_factor = models.FloatField(default=1)
 
     @property
     def serializer(self) -> type[BaseSerializer]:
@@ -122,6 +125,8 @@ class AuthenticatorValidateStage(Stage):
             return self.totp_otp_throttling_factor
         elif device_class == DeviceClasses.STATIC:
             return self.static_otp_throttling_factor
+        elif device_class == DeviceClasses.TELEGRAM:
+            return self.telegram_otp_throttling_factor
         return None
 
     class Meta:
