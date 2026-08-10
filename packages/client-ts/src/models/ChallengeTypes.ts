@@ -39,6 +39,11 @@ import {
     AuthenticatorStaticChallengeFromJSONTyped,
     AuthenticatorStaticChallengeToJSON,
 } from "./AuthenticatorStaticChallenge";
+import type { AuthenticatorTelegramChallenge } from "./AuthenticatorTelegramChallenge";
+import {
+    AuthenticatorTelegramChallengeFromJSONTyped,
+    AuthenticatorTelegramChallengeToJSON,
+} from "./AuthenticatorTelegramChallenge";
 import type { AuthenticatorTOTPChallenge } from "./AuthenticatorTOTPChallenge";
 import {
     AuthenticatorTOTPChallengeFromJSONTyped,
@@ -139,6 +144,7 @@ export type ChallengeTypes =
     | ({ component: "ak-stage-authenticator-email" } & AuthenticatorEmailChallenge)
     | ({ component: "ak-stage-authenticator-sms" } & AuthenticatorSMSChallenge)
     | ({ component: "ak-stage-authenticator-static" } & AuthenticatorStaticChallenge)
+    | ({ component: "ak-stage-authenticator-telegram" } & AuthenticatorTelegramChallenge)
     | ({ component: "ak-stage-authenticator-totp" } & AuthenticatorTOTPChallenge)
     | ({ component: "ak-stage-authenticator-validate" } & AuthenticatorValidationChallenge)
     | ({ component: "ak-stage-authenticator-webauthn" } & AuthenticatorWebAuthnChallenge)
@@ -217,6 +223,10 @@ export function ChallengeTypesFromJSONTyped(
         case "ak-stage-authenticator-static":
             return Object.assign({}, AuthenticatorStaticChallengeFromJSONTyped(json, true), {
                 component: "ak-stage-authenticator-static",
+            } as const);
+        case "ak-stage-authenticator-telegram":
+            return Object.assign({}, AuthenticatorTelegramChallengeFromJSONTyped(json, true), {
+                component: "ak-stage-authenticator-telegram",
             } as const);
         case "ak-stage-authenticator-totp":
             return Object.assign({}, AuthenticatorTOTPChallengeFromJSONTyped(json, true), {
@@ -354,6 +364,10 @@ export function ChallengeTypesToJSONTyped(
         case "ak-stage-authenticator-static":
             return Object.assign({}, AuthenticatorStaticChallengeToJSON(value), {
                 component: "ak-stage-authenticator-static",
+            } as const);
+        case "ak-stage-authenticator-telegram":
+            return Object.assign({}, AuthenticatorTelegramChallengeToJSON(value), {
+                component: "ak-stage-authenticator-telegram",
             } as const);
         case "ak-stage-authenticator-totp":
             return Object.assign({}, AuthenticatorTOTPChallengeToJSON(value), {

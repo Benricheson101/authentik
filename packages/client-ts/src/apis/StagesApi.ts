@@ -70,6 +70,14 @@ import {
     AuthenticatorStaticStageRequestToJSON,
 } from "../models/AuthenticatorStaticStageRequest";
 import {
+    type AuthenticatorTelegramStage,
+    AuthenticatorTelegramStageFromJSON,
+} from "../models/AuthenticatorTelegramStage";
+import {
+    type AuthenticatorTelegramStageRequest,
+    AuthenticatorTelegramStageRequestToJSON,
+} from "../models/AuthenticatorTelegramStageRequest";
+import {
     type AuthenticatorTOTPStage,
     AuthenticatorTOTPStageFromJSON,
 } from "../models/AuthenticatorTOTPStage";
@@ -167,6 +175,10 @@ import {
     type PaginatedAuthenticatorStaticStageList,
     PaginatedAuthenticatorStaticStageListFromJSON,
 } from "../models/PaginatedAuthenticatorStaticStageList";
+import {
+    type PaginatedAuthenticatorTelegramStageList,
+    PaginatedAuthenticatorTelegramStageListFromJSON,
+} from "../models/PaginatedAuthenticatorTelegramStageList";
 import {
     type PaginatedAuthenticatorTOTPStageList,
     PaginatedAuthenticatorTOTPStageListFromJSON,
@@ -289,6 +301,10 @@ import {
     type PatchedAuthenticatorStaticStageRequest,
     PatchedAuthenticatorStaticStageRequestToJSON,
 } from "../models/PatchedAuthenticatorStaticStageRequest";
+import {
+    type PatchedAuthenticatorTelegramStageRequest,
+    PatchedAuthenticatorTelegramStageRequestToJSON,
+} from "../models/PatchedAuthenticatorTelegramStageRequest";
 import {
     type PatchedAuthenticatorTOTPStageRequest,
     PatchedAuthenticatorTOTPStageRequestToJSON,
@@ -698,6 +714,46 @@ export interface StagesAuthenticatorStaticUpdateRequest {
 }
 
 export interface StagesAuthenticatorStaticUsedByListRequest {
+    stageUuid: string;
+}
+
+export interface StagesAuthenticatorTelegramCreateRequest {
+    authenticatorTelegramStageRequest: AuthenticatorTelegramStageRequest;
+}
+
+export interface StagesAuthenticatorTelegramDestroyRequest {
+    stageUuid: string;
+}
+
+export interface StagesAuthenticatorTelegramListRequest {
+    botToken?: string;
+    botUsername?: string;
+    configureFlow?: string;
+    friendlyName?: string;
+    mapping?: string;
+    name?: string;
+    ordering?: string;
+    page?: number;
+    pageSize?: number;
+    search?: string;
+    stageUuid?: string;
+}
+
+export interface StagesAuthenticatorTelegramPartialUpdateRequest {
+    stageUuid: string;
+    patchedAuthenticatorTelegramStageRequest?: PatchedAuthenticatorTelegramStageRequest;
+}
+
+export interface StagesAuthenticatorTelegramRetrieveRequest {
+    stageUuid: string;
+}
+
+export interface StagesAuthenticatorTelegramUpdateRequest {
+    stageUuid: string;
+    authenticatorTelegramStageRequest: AuthenticatorTelegramStageRequest;
+}
+
+export interface StagesAuthenticatorTelegramUsedByListRequest {
     stageUuid: string;
 }
 
@@ -5335,6 +5391,539 @@ export class StagesApi extends runtime.BaseAPI {
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<Array<UsedBy>> {
         const response = await this.stagesAuthenticatorStaticUsedByListRaw(
+            requestParameters,
+            initOverrides,
+        );
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for stagesAuthenticatorTelegramCreate without sending the request
+     */
+    async stagesAuthenticatorTelegramCreateRequestOpts(
+        requestParameters: StagesAuthenticatorTelegramCreateRequest,
+    ): Promise<runtime.RequestOpts> {
+        if (requestParameters["authenticatorTelegramStageRequest"] == null) {
+            throw new runtime.RequiredError(
+                "authenticatorTelegramStageRequest",
+                'Required parameter "authenticatorTelegramStageRequest" was null or undefined when calling stagesAuthenticatorTelegramCreate().',
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("authentik", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/stages/authenticator/telegram/`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: AuthenticatorTelegramStageRequestToJSON(
+                requestParameters["authenticatorTelegramStageRequest"],
+            ),
+        };
+    }
+
+    /**
+     * AuthenticatorTelegramStage Viewset
+     */
+    async stagesAuthenticatorTelegramCreateRaw(
+        requestParameters: StagesAuthenticatorTelegramCreateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<AuthenticatorTelegramStage>> {
+        const requestOptions =
+            await this.stagesAuthenticatorTelegramCreateRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) =>
+            AuthenticatorTelegramStageFromJSON(jsonValue),
+        );
+    }
+
+    /**
+     * AuthenticatorTelegramStage Viewset
+     */
+    async stagesAuthenticatorTelegramCreate(
+        requestParameters: StagesAuthenticatorTelegramCreateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<AuthenticatorTelegramStage> {
+        const response = await this.stagesAuthenticatorTelegramCreateRaw(
+            requestParameters,
+            initOverrides,
+        );
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for stagesAuthenticatorTelegramDestroy without sending the request
+     */
+    async stagesAuthenticatorTelegramDestroyRequestOpts(
+        requestParameters: StagesAuthenticatorTelegramDestroyRequest,
+    ): Promise<runtime.RequestOpts> {
+        if (requestParameters["stageUuid"] == null) {
+            throw new runtime.RequiredError(
+                "stageUuid",
+                'Required parameter "stageUuid" was null or undefined when calling stagesAuthenticatorTelegramDestroy().',
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("authentik", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/stages/authenticator/telegram/{stage_uuid}/`;
+        urlPath = urlPath.replace(
+            "{stage_uuid}",
+            encodeURIComponent(String(requestParameters["stageUuid"])),
+        );
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * AuthenticatorTelegramStage Viewset
+     */
+    async stagesAuthenticatorTelegramDestroyRaw(
+        requestParameters: StagesAuthenticatorTelegramDestroyRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<void>> {
+        const requestOptions =
+            await this.stagesAuthenticatorTelegramDestroyRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * AuthenticatorTelegramStage Viewset
+     */
+    async stagesAuthenticatorTelegramDestroy(
+        requestParameters: StagesAuthenticatorTelegramDestroyRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<void> {
+        await this.stagesAuthenticatorTelegramDestroyRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Creates request options for stagesAuthenticatorTelegramList without sending the request
+     */
+    async stagesAuthenticatorTelegramListRequestOpts(
+        requestParameters: StagesAuthenticatorTelegramListRequest,
+    ): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        if (requestParameters["botToken"] != null) {
+            queryParameters["bot_token"] = requestParameters["botToken"];
+        }
+
+        if (requestParameters["botUsername"] != null) {
+            queryParameters["bot_username"] = requestParameters["botUsername"];
+        }
+
+        if (requestParameters["configureFlow"] != null) {
+            queryParameters["configure_flow"] = requestParameters["configureFlow"];
+        }
+
+        if (requestParameters["friendlyName"] != null) {
+            queryParameters["friendly_name"] = requestParameters["friendlyName"];
+        }
+
+        if (requestParameters["mapping"] != null) {
+            queryParameters["mapping"] = requestParameters["mapping"];
+        }
+
+        if (requestParameters["name"] != null) {
+            queryParameters["name"] = requestParameters["name"];
+        }
+
+        if (requestParameters["ordering"] != null) {
+            queryParameters["ordering"] = requestParameters["ordering"];
+        }
+
+        if (requestParameters["page"] != null) {
+            queryParameters["page"] = requestParameters["page"];
+        }
+
+        if (requestParameters["pageSize"] != null) {
+            queryParameters["page_size"] = requestParameters["pageSize"];
+        }
+
+        if (requestParameters["search"] != null) {
+            queryParameters["search"] = requestParameters["search"];
+        }
+
+        if (requestParameters["stageUuid"] != null) {
+            queryParameters["stage_uuid"] = requestParameters["stageUuid"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("authentik", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/stages/authenticator/telegram/`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * AuthenticatorTelegramStage Viewset
+     */
+    async stagesAuthenticatorTelegramListRaw(
+        requestParameters: StagesAuthenticatorTelegramListRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<PaginatedAuthenticatorTelegramStageList>> {
+        const requestOptions =
+            await this.stagesAuthenticatorTelegramListRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) =>
+            PaginatedAuthenticatorTelegramStageListFromJSON(jsonValue),
+        );
+    }
+
+    /**
+     * AuthenticatorTelegramStage Viewset
+     */
+    async stagesAuthenticatorTelegramList(
+        requestParameters: StagesAuthenticatorTelegramListRequest = {},
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<PaginatedAuthenticatorTelegramStageList> {
+        const response = await this.stagesAuthenticatorTelegramListRaw(
+            requestParameters,
+            initOverrides,
+        );
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for stagesAuthenticatorTelegramPartialUpdate without sending the request
+     */
+    async stagesAuthenticatorTelegramPartialUpdateRequestOpts(
+        requestParameters: StagesAuthenticatorTelegramPartialUpdateRequest,
+    ): Promise<runtime.RequestOpts> {
+        if (requestParameters["stageUuid"] == null) {
+            throw new runtime.RequiredError(
+                "stageUuid",
+                'Required parameter "stageUuid" was null or undefined when calling stagesAuthenticatorTelegramPartialUpdate().',
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("authentik", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/stages/authenticator/telegram/{stage_uuid}/`;
+        urlPath = urlPath.replace(
+            "{stage_uuid}",
+            encodeURIComponent(String(requestParameters["stageUuid"])),
+        );
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: PatchedAuthenticatorTelegramStageRequestToJSON(
+                requestParameters["patchedAuthenticatorTelegramStageRequest"],
+            ),
+        };
+    }
+
+    /**
+     * AuthenticatorTelegramStage Viewset
+     */
+    async stagesAuthenticatorTelegramPartialUpdateRaw(
+        requestParameters: StagesAuthenticatorTelegramPartialUpdateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<AuthenticatorTelegramStage>> {
+        const requestOptions =
+            await this.stagesAuthenticatorTelegramPartialUpdateRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) =>
+            AuthenticatorTelegramStageFromJSON(jsonValue),
+        );
+    }
+
+    /**
+     * AuthenticatorTelegramStage Viewset
+     */
+    async stagesAuthenticatorTelegramPartialUpdate(
+        requestParameters: StagesAuthenticatorTelegramPartialUpdateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<AuthenticatorTelegramStage> {
+        const response = await this.stagesAuthenticatorTelegramPartialUpdateRaw(
+            requestParameters,
+            initOverrides,
+        );
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for stagesAuthenticatorTelegramRetrieve without sending the request
+     */
+    async stagesAuthenticatorTelegramRetrieveRequestOpts(
+        requestParameters: StagesAuthenticatorTelegramRetrieveRequest,
+    ): Promise<runtime.RequestOpts> {
+        if (requestParameters["stageUuid"] == null) {
+            throw new runtime.RequiredError(
+                "stageUuid",
+                'Required parameter "stageUuid" was null or undefined when calling stagesAuthenticatorTelegramRetrieve().',
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("authentik", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/stages/authenticator/telegram/{stage_uuid}/`;
+        urlPath = urlPath.replace(
+            "{stage_uuid}",
+            encodeURIComponent(String(requestParameters["stageUuid"])),
+        );
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * AuthenticatorTelegramStage Viewset
+     */
+    async stagesAuthenticatorTelegramRetrieveRaw(
+        requestParameters: StagesAuthenticatorTelegramRetrieveRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<AuthenticatorTelegramStage>> {
+        const requestOptions =
+            await this.stagesAuthenticatorTelegramRetrieveRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) =>
+            AuthenticatorTelegramStageFromJSON(jsonValue),
+        );
+    }
+
+    /**
+     * AuthenticatorTelegramStage Viewset
+     */
+    async stagesAuthenticatorTelegramRetrieve(
+        requestParameters: StagesAuthenticatorTelegramRetrieveRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<AuthenticatorTelegramStage> {
+        const response = await this.stagesAuthenticatorTelegramRetrieveRaw(
+            requestParameters,
+            initOverrides,
+        );
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for stagesAuthenticatorTelegramUpdate without sending the request
+     */
+    async stagesAuthenticatorTelegramUpdateRequestOpts(
+        requestParameters: StagesAuthenticatorTelegramUpdateRequest,
+    ): Promise<runtime.RequestOpts> {
+        if (requestParameters["stageUuid"] == null) {
+            throw new runtime.RequiredError(
+                "stageUuid",
+                'Required parameter "stageUuid" was null or undefined when calling stagesAuthenticatorTelegramUpdate().',
+            );
+        }
+
+        if (requestParameters["authenticatorTelegramStageRequest"] == null) {
+            throw new runtime.RequiredError(
+                "authenticatorTelegramStageRequest",
+                'Required parameter "authenticatorTelegramStageRequest" was null or undefined when calling stagesAuthenticatorTelegramUpdate().',
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("authentik", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/stages/authenticator/telegram/{stage_uuid}/`;
+        urlPath = urlPath.replace(
+            "{stage_uuid}",
+            encodeURIComponent(String(requestParameters["stageUuid"])),
+        );
+
+        return {
+            path: urlPath,
+            method: "PUT",
+            headers: headerParameters,
+            query: queryParameters,
+            body: AuthenticatorTelegramStageRequestToJSON(
+                requestParameters["authenticatorTelegramStageRequest"],
+            ),
+        };
+    }
+
+    /**
+     * AuthenticatorTelegramStage Viewset
+     */
+    async stagesAuthenticatorTelegramUpdateRaw(
+        requestParameters: StagesAuthenticatorTelegramUpdateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<AuthenticatorTelegramStage>> {
+        const requestOptions =
+            await this.stagesAuthenticatorTelegramUpdateRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) =>
+            AuthenticatorTelegramStageFromJSON(jsonValue),
+        );
+    }
+
+    /**
+     * AuthenticatorTelegramStage Viewset
+     */
+    async stagesAuthenticatorTelegramUpdate(
+        requestParameters: StagesAuthenticatorTelegramUpdateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<AuthenticatorTelegramStage> {
+        const response = await this.stagesAuthenticatorTelegramUpdateRaw(
+            requestParameters,
+            initOverrides,
+        );
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for stagesAuthenticatorTelegramUsedByList without sending the request
+     */
+    async stagesAuthenticatorTelegramUsedByListRequestOpts(
+        requestParameters: StagesAuthenticatorTelegramUsedByListRequest,
+    ): Promise<runtime.RequestOpts> {
+        if (requestParameters["stageUuid"] == null) {
+            throw new runtime.RequiredError(
+                "stageUuid",
+                'Required parameter "stageUuid" was null or undefined when calling stagesAuthenticatorTelegramUsedByList().',
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("authentik", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/stages/authenticator/telegram/{stage_uuid}/used_by/`;
+        urlPath = urlPath.replace(
+            "{stage_uuid}",
+            encodeURIComponent(String(requestParameters["stageUuid"])),
+        );
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get a list of all objects that use this object
+     */
+    async stagesAuthenticatorTelegramUsedByListRaw(
+        requestParameters: StagesAuthenticatorTelegramUsedByListRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<Array<UsedBy>>> {
+        const requestOptions =
+            await this.stagesAuthenticatorTelegramUsedByListRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(UsedByFromJSON));
+    }
+
+    /**
+     * Get a list of all objects that use this object
+     */
+    async stagesAuthenticatorTelegramUsedByList(
+        requestParameters: StagesAuthenticatorTelegramUsedByListRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<Array<UsedBy>> {
+        const response = await this.stagesAuthenticatorTelegramUsedByListRaw(
             requestParameters,
             initOverrides,
         );

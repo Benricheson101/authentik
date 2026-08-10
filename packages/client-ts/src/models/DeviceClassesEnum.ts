@@ -23,6 +23,7 @@ export const DeviceClassesEnum = {
     Duo: "duo",
     Sms: "sms",
     Email: "email",
+    Telegram: "telegram",
     UnknownDefaultOpenApi: "11184809",
 } as const;
 export type DeviceClassesEnum = (typeof DeviceClassesEnum)[keyof typeof DeviceClassesEnum];

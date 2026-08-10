@@ -148,6 +148,12 @@ export interface AuthenticatorValidateStage {
      * @memberof AuthenticatorValidateStage
      */
     staticOtpThrottlingFactor?: number;
+    /**
+     *
+     * @type {number}
+     * @memberof AuthenticatorValidateStage
+     */
+    telegramOtpThrottlingFactor?: number;
 }
 
 /**
@@ -259,6 +265,10 @@ export function AuthenticatorValidateStageFromJSONTyped(
             json["static_otp_throttling_factor"] == null
                 ? undefined
                 : json["static_otp_throttling_factor"],
+        telegramOtpThrottlingFactor:
+            json["telegram_otp_throttling_factor"] == null
+                ? undefined
+                : json["telegram_otp_throttling_factor"],
     };
 }
 
@@ -302,5 +312,6 @@ export function AuthenticatorValidateStageToJSONTyped(
         sms_otp_throttling_factor: value["smsOtpThrottlingFactor"],
         totp_otp_throttling_factor: value["totpOtpThrottlingFactor"],
         static_otp_throttling_factor: value["staticOtpThrottlingFactor"],
+        telegram_otp_throttling_factor: value["telegramOtpThrottlingFactor"],
     };
 }

@@ -129,6 +129,10 @@ export const ModelEnum = {
         "authentik_stages_authenticator_static.authenticatorstaticstage",
     AuthentikStagesAuthenticatorStaticStaticdevice:
         "authentik_stages_authenticator_static.staticdevice",
+    AuthentikStagesAuthenticatorTelegramAuthenticatortelegramstage:
+        "authentik_stages_authenticator_telegram.authenticatortelegramstage",
+    AuthentikStagesAuthenticatorTelegramTelegramdevice:
+        "authentik_stages_authenticator_telegram.telegramdevice",
     AuthentikStagesAuthenticatorTotpAuthenticatortotpstage:
         "authentik_stages_authenticator_totp.authenticatortotpstage",
     AuthentikStagesAuthenticatorTotpTotpdevice: "authentik_stages_authenticator_totp.totpdevice",

@@ -60,6 +60,7 @@ export const AppEnum = {
     AuthentikStagesAuthenticatorEmail: "authentik.stages.authenticator_email",
     AuthentikStagesAuthenticatorSms: "authentik.stages.authenticator_sms",
     AuthentikStagesAuthenticatorStatic: "authentik.stages.authenticator_static",
+    AuthentikStagesAuthenticatorTelegram: "authentik.stages.authenticator_telegram",
     AuthentikStagesAuthenticatorTotp: "authentik.stages.authenticator_totp",
     AuthentikStagesAuthenticatorValidate: "authentik.stages.authenticator_validate",
     AuthentikStagesAuthenticatorWebauthn: "authentik.stages.authenticator_webauthn",

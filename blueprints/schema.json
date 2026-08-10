@@ -4424,6 +4424,86 @@
                     ],
                     "properties": {
                         "model": {
+                            "const": "authentik_stages_authenticator_telegram.authenticatortelegramstage"
+                        },
+                        "id": {
+                            "type": "string"
+                        },
+                        "state": {
+                            "type": "string",
+                            "enum": [
+                                "absent",
+                                "created",
+                                "must_created",
+                                "present"
+                            ],
+                            "default": "present"
+                        },
+                        "conditions": {
+                            "type": "array",
+                            "items": {
+                                "type": "boolean"
+                            }
+                        },
+                        "permissions": {
+                            "$ref": "#/$defs/model_authentik_stages_authenticator_telegram.authenticatortelegramstage_permissions"
+                        },
+                        "attrs": {
+                            "$ref": "#/$defs/model_authentik_stages_authenticator_telegram.authenticatortelegramstage"
+                        },
+                        "identifiers": {
+                            "$ref": "#/$defs/model_authentik_stages_authenticator_telegram.authenticatortelegramstage"
+                        }
+                    }
+                },
+                {
+                    "type": "object",
+                    "required": [
+                        "model",
+                        "identifiers"
+                    ],
+                    "properties": {
+                        "model": {
+                            "const": "authentik_stages_authenticator_telegram.telegramdevice"
+                        },
+                        "id": {
+                            "type": "string"
+                        },
+                        "state": {
+                            "type": "string",
+                            "enum": [
+                                "absent",
+                                "created",
+                                "must_created",
+                                "present"
+                            ],
+                            "default": "present"
+                        },
+                        "conditions": {
+                            "type": "array",
+                            "items": {
+                                "type": "boolean"
+                            }
+                        },
+                        "permissions": {
+                            "$ref": "#/$defs/model_authentik_stages_authenticator_telegram.telegramdevice_permissions"
+                        },
+                        "attrs": {
+                            "$ref": "#/$defs/model_authentik_stages_authenticator_telegram.telegramdevice"
+                        },
+                        "identifiers": {
+                            "$ref": "#/$defs/model_authentik_stages_authenticator_telegram.telegramdevice"
+                        }
+                    }
+                },
+                {
+                    "type": "object",
+                    "required": [
+                        "model",
+                        "identifiers"
+                    ],
+                    "properties": {
+                        "model": {
                             "const": "authentik_stages_authenticator_totp.authenticatortotpstage"
                         },
                         "id": {
@@ -6406,6 +6486,14 @@
                             "authentik_stages_authenticator_static.view_authenticatorstaticstage",
                             "authentik_stages_authenticator_static.view_staticdevice",
                             "authentik_stages_authenticator_static.view_statictoken",
+                            "authentik_stages_authenticator_telegram.add_authenticatortelegramstage",
+                            "authentik_stages_authenticator_telegram.add_telegramdevice",
+                            "authentik_stages_authenticator_telegram.change_authenticatortelegramstage",
+                            "authentik_stages_authenticator_telegram.change_telegramdevice",
+                            "authentik_stages_authenticator_telegram.delete_authenticatortelegramstage",
+                            "authentik_stages_authenticator_telegram.delete_telegramdevice",
+                            "authentik_stages_authenticator_telegram.view_authenticatortelegramstage",
+                            "authentik_stages_authenticator_telegram.view_telegramdevice",
                             "authentik_stages_authenticator_totp.add_authenticatortotpstage",
                             "authentik_stages_authenticator_totp.add_totpdevice",
                             "authentik_stages_authenticator_totp.change_authenticatortotpstage",
@@ -7800,6 +7888,14 @@
                             "authentik_stages_authenticator_static.view_authenticatorstaticstage",
                             "authentik_stages_authenticator_static.view_staticdevice",
                             "authentik_stages_authenticator_static.view_statictoken",
+                            "authentik_stages_authenticator_telegram.add_authenticatortelegramstage",
+                            "authentik_stages_authenticator_telegram.add_telegramdevice",
+                            "authentik_stages_authenticator_telegram.change_authenticatortelegramstage",
+                            "authentik_stages_authenticator_telegram.change_telegramdevice",
+                            "authentik_stages_authenticator_telegram.delete_authenticatortelegramstage",
+                            "authentik_stages_authenticator_telegram.delete_telegramdevice",
+                            "authentik_stages_authenticator_telegram.view_authenticatortelegramstage",
+                            "authentik_stages_authenticator_telegram.view_telegramdevice",
                             "authentik_stages_authenticator_totp.add_authenticatortotpstage",
                             "authentik_stages_authenticator_totp.add_totpdevice",
                             "authentik_stages_authenticator_totp.change_authenticatortotpstage",
@@ -11098,6 +11194,7 @@
                         "authentik.stages.authenticator_email",
                         "authentik.stages.authenticator_sms",
                         "authentik.stages.authenticator_static",
+                        "authentik.stages.authenticator_telegram",
                         "authentik.stages.authenticator_totp",
                         "authentik.stages.authenticator_validate",
                         "authentik.stages.authenticator_webauthn",
@@ -11233,6 +11330,8 @@
                         "authentik_stages_authenticator_sms.smsdevice",
                         "authentik_stages_authenticator_static.authenticatorstaticstage",
                         "authentik_stages_authenticator_static.staticdevice",
+                        "authentik_stages_authenticator_telegram.authenticatortelegramstage",
+                        "authentik_stages_authenticator_telegram.telegramdevice",
                         "authentik_stages_authenticator_totp.authenticatortotpstage",
                         "authentik_stages_authenticator_totp.totpdevice",
                         "authentik_stages_authenticator_validate.authenticatorvalidatestage",
@@ -14289,6 +14388,14 @@
                             "authentik_stages_authenticator_static.view_authenticatorstaticstage",
                             "authentik_stages_authenticator_static.view_staticdevice",
                             "authentik_stages_authenticator_static.view_statictoken",
+                            "authentik_stages_authenticator_telegram.add_authenticatortelegramstage",
+                            "authentik_stages_authenticator_telegram.add_telegramdevice",
+                            "authentik_stages_authenticator_telegram.change_authenticatortelegramstage",
+                            "authentik_stages_authenticator_telegram.change_telegramdevice",
+                            "authentik_stages_authenticator_telegram.delete_authenticatortelegramstage",
+                            "authentik_stages_authenticator_telegram.delete_telegramdevice",
+                            "authentik_stages_authenticator_telegram.view_authenticatortelegramstage",
+                            "authentik_stages_authenticator_telegram.view_telegramdevice",
                             "authentik_stages_authenticator_totp.add_authenticatortotpstage",
                             "authentik_stages_authenticator_totp.add_totpdevice",
                             "authentik_stages_authenticator_totp.change_authenticatortotpstage",
@@ -17068,6 +17175,104 @@
                 }
             }
         },
+        "model_authentik_stages_authenticator_telegram.authenticatortelegramstage": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "title": "Name"
+                },
+                "configure_flow": {
+                    "type": "string",
+                    "format": "uuid",
+                    "title": "Configure flow",
+                    "description": "Flow used by an authenticated user to configure this Stage. If empty, user will not be able to configure this stage."
+                },
+                "friendly_name": {
+                    "type": "string",
+                    "title": "Friendly name"
+                },
+                "bot_username": {
+                    "type": "string",
+                    "minLength": 1,
+                    "title": "Bot username",
+                    "description": "Telegram bot username"
+                },
+                "bot_token": {
+                    "type": "string",
+                    "minLength": 1,
+                    "title": "Bot token",
+                    "description": "Telegram bot token"
+                }
+            },
+            "required": []
+        },
+        "model_authentik_stages_authenticator_telegram.authenticatortelegramstage_permissions": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "required": [
+                    "permission"
+                ],
+                "properties": {
+                    "permission": {
+                        "type": "string",
+                        "enum": [
+                            "add_authenticatortelegramstage",
+                            "change_authenticatortelegramstage",
+                            "delete_authenticatortelegramstage",
+                            "view_authenticatortelegramstage"
+                        ]
+                    },
+                    "user": {
+                        "type": "integer"
+                    },
+                    "role": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "model_authentik_stages_authenticator_telegram.telegramdevice": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "maxLength": 64,
+                    "minLength": 1,
+                    "title": "Name",
+                    "description": "The human-readable name of this device."
+                }
+            },
+            "required": []
+        },
+        "model_authentik_stages_authenticator_telegram.telegramdevice_permissions": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "required": [
+                    "permission"
+                ],
+                "properties": {
+                    "permission": {
+                        "type": "string",
+                        "enum": [
+                            "add_telegramdevice",
+                            "change_telegramdevice",
+                            "delete_telegramdevice",
+                            "view_telegramdevice"
+                        ]
+                    },
+                    "user": {
+                        "type": "integer"
+                    },
+                    "role": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
         "model_authentik_stages_authenticator_totp.authenticatortotpstage": {
             "type": "object",
             "properties": {
@@ -17189,7 +17394,8 @@
                             "webauthn",
                             "duo",
                             "sms",
-                            "email"
+                            "email",
+                            "telegram"
                         ],
                         "title": "Device classes"
                     },
@@ -17258,6 +17464,10 @@
                 "static_otp_throttling_factor": {
                     "type": "number",
                     "title": "Static otp throttling factor"
+                },
+                "telegram_otp_throttling_factor": {
+                    "type": "number",
+                    "title": "Telegram otp throttling factor"
                 }
             },
             "required": []

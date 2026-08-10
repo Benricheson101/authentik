@@ -46,6 +46,10 @@ import {
     PaginatedStaticDeviceListFromJSON,
 } from "../models/PaginatedStaticDeviceList";
 import {
+    type PaginatedTelegramDeviceList,
+    PaginatedTelegramDeviceListFromJSON,
+} from "../models/PaginatedTelegramDeviceList";
+import {
     type PaginatedTOTPDeviceList,
     PaginatedTOTPDeviceListFromJSON,
 } from "../models/PaginatedTOTPDeviceList";
@@ -74,6 +78,10 @@ import {
     PatchedStaticDeviceRequestToJSON,
 } from "../models/PatchedStaticDeviceRequest";
 import {
+    type PatchedTelegramDeviceRequest,
+    PatchedTelegramDeviceRequestToJSON,
+} from "../models/PatchedTelegramDeviceRequest";
+import {
     type PatchedTOTPDeviceRequest,
     PatchedTOTPDeviceRequestToJSON,
 } from "../models/PatchedTOTPDeviceRequest";
@@ -85,6 +93,11 @@ import { type SMSDevice, SMSDeviceFromJSON } from "../models/SMSDevice";
 import { type SMSDeviceRequest, SMSDeviceRequestToJSON } from "../models/SMSDeviceRequest";
 import { type StaticDevice, StaticDeviceFromJSON } from "../models/StaticDevice";
 import { type StaticDeviceRequest, StaticDeviceRequestToJSON } from "../models/StaticDeviceRequest";
+import { type TelegramDevice, TelegramDeviceFromJSON } from "../models/TelegramDevice";
+import {
+    type TelegramDeviceRequest,
+    TelegramDeviceRequestToJSON,
+} from "../models/TelegramDeviceRequest";
 import { type TOTPDevice, TOTPDeviceFromJSON } from "../models/TOTPDevice";
 import { type TOTPDeviceRequest, TOTPDeviceRequestToJSON } from "../models/TOTPDeviceRequest";
 import { type UsedBy, UsedByFromJSON } from "../models/UsedBy";
@@ -247,6 +260,36 @@ export interface AuthenticatorsAdminStaticRetrieveRequest {
 export interface AuthenticatorsAdminStaticUpdateRequest {
     id: number;
     staticDeviceRequest: StaticDeviceRequest;
+}
+
+export interface AuthenticatorsAdminTelegramCreateRequest {
+    telegramDeviceRequest: TelegramDeviceRequest;
+}
+
+export interface AuthenticatorsAdminTelegramDestroyRequest {
+    id: number;
+}
+
+export interface AuthenticatorsAdminTelegramListRequest {
+    name?: string;
+    ordering?: string;
+    page?: number;
+    pageSize?: number;
+    search?: string;
+}
+
+export interface AuthenticatorsAdminTelegramPartialUpdateRequest {
+    id: number;
+    patchedTelegramDeviceRequest?: PatchedTelegramDeviceRequest;
+}
+
+export interface AuthenticatorsAdminTelegramRetrieveRequest {
+    id: number;
+}
+
+export interface AuthenticatorsAdminTelegramUpdateRequest {
+    id: number;
+    telegramDeviceRequest: TelegramDeviceRequest;
 }
 
 export interface AuthenticatorsAdminTotpCreateRequest {
@@ -442,6 +485,36 @@ export interface AuthenticatorsStaticUpdateRequest {
 }
 
 export interface AuthenticatorsStaticUsedByListRequest {
+    id: number;
+}
+
+export interface AuthenticatorsTelegramDestroyRequest {
+    id: number;
+}
+
+export interface AuthenticatorsTelegramListRequest {
+    name?: string;
+    ordering?: string;
+    page?: number;
+    pageSize?: number;
+    search?: string;
+}
+
+export interface AuthenticatorsTelegramPartialUpdateRequest {
+    id: number;
+    patchedTelegramDeviceRequest?: PatchedTelegramDeviceRequest;
+}
+
+export interface AuthenticatorsTelegramRetrieveRequest {
+    id: number;
+}
+
+export interface AuthenticatorsTelegramUpdateRequest {
+    id: number;
+    telegramDeviceRequest: TelegramDeviceRequest;
+}
+
+export interface AuthenticatorsTelegramUsedByListRequest {
     id: number;
 }
 
@@ -2649,6 +2722,431 @@ export class AuthenticatorsApi extends runtime.BaseAPI {
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<StaticDevice> {
         const response = await this.authenticatorsAdminStaticUpdateRaw(
+            requestParameters,
+            initOverrides,
+        );
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for authenticatorsAdminTelegramCreate without sending the request
+     */
+    async authenticatorsAdminTelegramCreateRequestOpts(
+        requestParameters: AuthenticatorsAdminTelegramCreateRequest,
+    ): Promise<runtime.RequestOpts> {
+        if (requestParameters["telegramDeviceRequest"] == null) {
+            throw new runtime.RequiredError(
+                "telegramDeviceRequest",
+                'Required parameter "telegramDeviceRequest" was null or undefined when calling authenticatorsAdminTelegramCreate().',
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("authentik", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/authenticators/admin/telegram/`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: TelegramDeviceRequestToJSON(requestParameters["telegramDeviceRequest"]),
+        };
+    }
+
+    /**
+     * Viewset for Telegram authenticator devices (for admins)
+     */
+    async authenticatorsAdminTelegramCreateRaw(
+        requestParameters: AuthenticatorsAdminTelegramCreateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<TelegramDevice>> {
+        const requestOptions =
+            await this.authenticatorsAdminTelegramCreateRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) =>
+            TelegramDeviceFromJSON(jsonValue),
+        );
+    }
+
+    /**
+     * Viewset for Telegram authenticator devices (for admins)
+     */
+    async authenticatorsAdminTelegramCreate(
+        requestParameters: AuthenticatorsAdminTelegramCreateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<TelegramDevice> {
+        const response = await this.authenticatorsAdminTelegramCreateRaw(
+            requestParameters,
+            initOverrides,
+        );
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for authenticatorsAdminTelegramDestroy without sending the request
+     */
+    async authenticatorsAdminTelegramDestroyRequestOpts(
+        requestParameters: AuthenticatorsAdminTelegramDestroyRequest,
+    ): Promise<runtime.RequestOpts> {
+        if (requestParameters["id"] == null) {
+            throw new runtime.RequiredError(
+                "id",
+                'Required parameter "id" was null or undefined when calling authenticatorsAdminTelegramDestroy().',
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("authentik", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/authenticators/admin/telegram/{id}/`;
+        urlPath = urlPath.replace("{id}", encodeURIComponent(String(requestParameters["id"])));
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Viewset for Telegram authenticator devices (for admins)
+     */
+    async authenticatorsAdminTelegramDestroyRaw(
+        requestParameters: AuthenticatorsAdminTelegramDestroyRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<void>> {
+        const requestOptions =
+            await this.authenticatorsAdminTelegramDestroyRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Viewset for Telegram authenticator devices (for admins)
+     */
+    async authenticatorsAdminTelegramDestroy(
+        requestParameters: AuthenticatorsAdminTelegramDestroyRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<void> {
+        await this.authenticatorsAdminTelegramDestroyRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Creates request options for authenticatorsAdminTelegramList without sending the request
+     */
+    async authenticatorsAdminTelegramListRequestOpts(
+        requestParameters: AuthenticatorsAdminTelegramListRequest,
+    ): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        if (requestParameters["name"] != null) {
+            queryParameters["name"] = requestParameters["name"];
+        }
+
+        if (requestParameters["ordering"] != null) {
+            queryParameters["ordering"] = requestParameters["ordering"];
+        }
+
+        if (requestParameters["page"] != null) {
+            queryParameters["page"] = requestParameters["page"];
+        }
+
+        if (requestParameters["pageSize"] != null) {
+            queryParameters["page_size"] = requestParameters["pageSize"];
+        }
+
+        if (requestParameters["search"] != null) {
+            queryParameters["search"] = requestParameters["search"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("authentik", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/authenticators/admin/telegram/`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Viewset for Telegram authenticator devices (for admins)
+     */
+    async authenticatorsAdminTelegramListRaw(
+        requestParameters: AuthenticatorsAdminTelegramListRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<PaginatedTelegramDeviceList>> {
+        const requestOptions =
+            await this.authenticatorsAdminTelegramListRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) =>
+            PaginatedTelegramDeviceListFromJSON(jsonValue),
+        );
+    }
+
+    /**
+     * Viewset for Telegram authenticator devices (for admins)
+     */
+    async authenticatorsAdminTelegramList(
+        requestParameters: AuthenticatorsAdminTelegramListRequest = {},
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<PaginatedTelegramDeviceList> {
+        const response = await this.authenticatorsAdminTelegramListRaw(
+            requestParameters,
+            initOverrides,
+        );
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for authenticatorsAdminTelegramPartialUpdate without sending the request
+     */
+    async authenticatorsAdminTelegramPartialUpdateRequestOpts(
+        requestParameters: AuthenticatorsAdminTelegramPartialUpdateRequest,
+    ): Promise<runtime.RequestOpts> {
+        if (requestParameters["id"] == null) {
+            throw new runtime.RequiredError(
+                "id",
+                'Required parameter "id" was null or undefined when calling authenticatorsAdminTelegramPartialUpdate().',
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("authentik", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/authenticators/admin/telegram/{id}/`;
+        urlPath = urlPath.replace("{id}", encodeURIComponent(String(requestParameters["id"])));
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: PatchedTelegramDeviceRequestToJSON(
+                requestParameters["patchedTelegramDeviceRequest"],
+            ),
+        };
+    }
+
+    /**
+     * Viewset for Telegram authenticator devices (for admins)
+     */
+    async authenticatorsAdminTelegramPartialUpdateRaw(
+        requestParameters: AuthenticatorsAdminTelegramPartialUpdateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<TelegramDevice>> {
+        const requestOptions =
+            await this.authenticatorsAdminTelegramPartialUpdateRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) =>
+            TelegramDeviceFromJSON(jsonValue),
+        );
+    }
+
+    /**
+     * Viewset for Telegram authenticator devices (for admins)
+     */
+    async authenticatorsAdminTelegramPartialUpdate(
+        requestParameters: AuthenticatorsAdminTelegramPartialUpdateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<TelegramDevice> {
+        const response = await this.authenticatorsAdminTelegramPartialUpdateRaw(
+            requestParameters,
+            initOverrides,
+        );
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for authenticatorsAdminTelegramRetrieve without sending the request
+     */
+    async authenticatorsAdminTelegramRetrieveRequestOpts(
+        requestParameters: AuthenticatorsAdminTelegramRetrieveRequest,
+    ): Promise<runtime.RequestOpts> {
+        if (requestParameters["id"] == null) {
+            throw new runtime.RequiredError(
+                "id",
+                'Required parameter "id" was null or undefined when calling authenticatorsAdminTelegramRetrieve().',
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("authentik", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/authenticators/admin/telegram/{id}/`;
+        urlPath = urlPath.replace("{id}", encodeURIComponent(String(requestParameters["id"])));
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Viewset for Telegram authenticator devices (for admins)
+     */
+    async authenticatorsAdminTelegramRetrieveRaw(
+        requestParameters: AuthenticatorsAdminTelegramRetrieveRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<TelegramDevice>> {
+        const requestOptions =
+            await this.authenticatorsAdminTelegramRetrieveRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) =>
+            TelegramDeviceFromJSON(jsonValue),
+        );
+    }
+
+    /**
+     * Viewset for Telegram authenticator devices (for admins)
+     */
+    async authenticatorsAdminTelegramRetrieve(
+        requestParameters: AuthenticatorsAdminTelegramRetrieveRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<TelegramDevice> {
+        const response = await this.authenticatorsAdminTelegramRetrieveRaw(
+            requestParameters,
+            initOverrides,
+        );
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for authenticatorsAdminTelegramUpdate without sending the request
+     */
+    async authenticatorsAdminTelegramUpdateRequestOpts(
+        requestParameters: AuthenticatorsAdminTelegramUpdateRequest,
+    ): Promise<runtime.RequestOpts> {
+        if (requestParameters["id"] == null) {
+            throw new runtime.RequiredError(
+                "id",
+                'Required parameter "id" was null or undefined when calling authenticatorsAdminTelegramUpdate().',
+            );
+        }
+
+        if (requestParameters["telegramDeviceRequest"] == null) {
+            throw new runtime.RequiredError(
+                "telegramDeviceRequest",
+                'Required parameter "telegramDeviceRequest" was null or undefined when calling authenticatorsAdminTelegramUpdate().',
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("authentik", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/authenticators/admin/telegram/{id}/`;
+        urlPath = urlPath.replace("{id}", encodeURIComponent(String(requestParameters["id"])));
+
+        return {
+            path: urlPath,
+            method: "PUT",
+            headers: headerParameters,
+            query: queryParameters,
+            body: TelegramDeviceRequestToJSON(requestParameters["telegramDeviceRequest"]),
+        };
+    }
+
+    /**
+     * Viewset for Telegram authenticator devices (for admins)
+     */
+    async authenticatorsAdminTelegramUpdateRaw(
+        requestParameters: AuthenticatorsAdminTelegramUpdateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<TelegramDevice>> {
+        const requestOptions =
+            await this.authenticatorsAdminTelegramUpdateRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) =>
+            TelegramDeviceFromJSON(jsonValue),
+        );
+    }
+
+    /**
+     * Viewset for Telegram authenticator devices (for admins)
+     */
+    async authenticatorsAdminTelegramUpdate(
+        requestParameters: AuthenticatorsAdminTelegramUpdateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<TelegramDevice> {
+        const response = await this.authenticatorsAdminTelegramUpdateRaw(
             requestParameters,
             initOverrides,
         );
@@ -5355,6 +5853,423 @@ export class AuthenticatorsApi extends runtime.BaseAPI {
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<Array<UsedBy>> {
         const response = await this.authenticatorsStaticUsedByListRaw(
+            requestParameters,
+            initOverrides,
+        );
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for authenticatorsTelegramDestroy without sending the request
+     */
+    async authenticatorsTelegramDestroyRequestOpts(
+        requestParameters: AuthenticatorsTelegramDestroyRequest,
+    ): Promise<runtime.RequestOpts> {
+        if (requestParameters["id"] == null) {
+            throw new runtime.RequiredError(
+                "id",
+                'Required parameter "id" was null or undefined when calling authenticatorsTelegramDestroy().',
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("authentik", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/authenticators/telegram/{id}/`;
+        urlPath = urlPath.replace("{id}", encodeURIComponent(String(requestParameters["id"])));
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Viewset for Telegram authenticator devices
+     */
+    async authenticatorsTelegramDestroyRaw(
+        requestParameters: AuthenticatorsTelegramDestroyRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<void>> {
+        const requestOptions =
+            await this.authenticatorsTelegramDestroyRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Viewset for Telegram authenticator devices
+     */
+    async authenticatorsTelegramDestroy(
+        requestParameters: AuthenticatorsTelegramDestroyRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<void> {
+        await this.authenticatorsTelegramDestroyRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Creates request options for authenticatorsTelegramList without sending the request
+     */
+    async authenticatorsTelegramListRequestOpts(
+        requestParameters: AuthenticatorsTelegramListRequest,
+    ): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        if (requestParameters["name"] != null) {
+            queryParameters["name"] = requestParameters["name"];
+        }
+
+        if (requestParameters["ordering"] != null) {
+            queryParameters["ordering"] = requestParameters["ordering"];
+        }
+
+        if (requestParameters["page"] != null) {
+            queryParameters["page"] = requestParameters["page"];
+        }
+
+        if (requestParameters["pageSize"] != null) {
+            queryParameters["page_size"] = requestParameters["pageSize"];
+        }
+
+        if (requestParameters["search"] != null) {
+            queryParameters["search"] = requestParameters["search"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("authentik", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/authenticators/telegram/`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Viewset for Telegram authenticator devices
+     */
+    async authenticatorsTelegramListRaw(
+        requestParameters: AuthenticatorsTelegramListRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<PaginatedTelegramDeviceList>> {
+        const requestOptions = await this.authenticatorsTelegramListRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) =>
+            PaginatedTelegramDeviceListFromJSON(jsonValue),
+        );
+    }
+
+    /**
+     * Viewset for Telegram authenticator devices
+     */
+    async authenticatorsTelegramList(
+        requestParameters: AuthenticatorsTelegramListRequest = {},
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<PaginatedTelegramDeviceList> {
+        const response = await this.authenticatorsTelegramListRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for authenticatorsTelegramPartialUpdate without sending the request
+     */
+    async authenticatorsTelegramPartialUpdateRequestOpts(
+        requestParameters: AuthenticatorsTelegramPartialUpdateRequest,
+    ): Promise<runtime.RequestOpts> {
+        if (requestParameters["id"] == null) {
+            throw new runtime.RequiredError(
+                "id",
+                'Required parameter "id" was null or undefined when calling authenticatorsTelegramPartialUpdate().',
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("authentik", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/authenticators/telegram/{id}/`;
+        urlPath = urlPath.replace("{id}", encodeURIComponent(String(requestParameters["id"])));
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: PatchedTelegramDeviceRequestToJSON(
+                requestParameters["patchedTelegramDeviceRequest"],
+            ),
+        };
+    }
+
+    /**
+     * Viewset for Telegram authenticator devices
+     */
+    async authenticatorsTelegramPartialUpdateRaw(
+        requestParameters: AuthenticatorsTelegramPartialUpdateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<TelegramDevice>> {
+        const requestOptions =
+            await this.authenticatorsTelegramPartialUpdateRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) =>
+            TelegramDeviceFromJSON(jsonValue),
+        );
+    }
+
+    /**
+     * Viewset for Telegram authenticator devices
+     */
+    async authenticatorsTelegramPartialUpdate(
+        requestParameters: AuthenticatorsTelegramPartialUpdateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<TelegramDevice> {
+        const response = await this.authenticatorsTelegramPartialUpdateRaw(
+            requestParameters,
+            initOverrides,
+        );
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for authenticatorsTelegramRetrieve without sending the request
+     */
+    async authenticatorsTelegramRetrieveRequestOpts(
+        requestParameters: AuthenticatorsTelegramRetrieveRequest,
+    ): Promise<runtime.RequestOpts> {
+        if (requestParameters["id"] == null) {
+            throw new runtime.RequiredError(
+                "id",
+                'Required parameter "id" was null or undefined when calling authenticatorsTelegramRetrieve().',
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("authentik", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/authenticators/telegram/{id}/`;
+        urlPath = urlPath.replace("{id}", encodeURIComponent(String(requestParameters["id"])));
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Viewset for Telegram authenticator devices
+     */
+    async authenticatorsTelegramRetrieveRaw(
+        requestParameters: AuthenticatorsTelegramRetrieveRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<TelegramDevice>> {
+        const requestOptions =
+            await this.authenticatorsTelegramRetrieveRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) =>
+            TelegramDeviceFromJSON(jsonValue),
+        );
+    }
+
+    /**
+     * Viewset for Telegram authenticator devices
+     */
+    async authenticatorsTelegramRetrieve(
+        requestParameters: AuthenticatorsTelegramRetrieveRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<TelegramDevice> {
+        const response = await this.authenticatorsTelegramRetrieveRaw(
+            requestParameters,
+            initOverrides,
+        );
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for authenticatorsTelegramUpdate without sending the request
+     */
+    async authenticatorsTelegramUpdateRequestOpts(
+        requestParameters: AuthenticatorsTelegramUpdateRequest,
+    ): Promise<runtime.RequestOpts> {
+        if (requestParameters["id"] == null) {
+            throw new runtime.RequiredError(
+                "id",
+                'Required parameter "id" was null or undefined when calling authenticatorsTelegramUpdate().',
+            );
+        }
+
+        if (requestParameters["telegramDeviceRequest"] == null) {
+            throw new runtime.RequiredError(
+                "telegramDeviceRequest",
+                'Required parameter "telegramDeviceRequest" was null or undefined when calling authenticatorsTelegramUpdate().',
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("authentik", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/authenticators/telegram/{id}/`;
+        urlPath = urlPath.replace("{id}", encodeURIComponent(String(requestParameters["id"])));
+
+        return {
+            path: urlPath,
+            method: "PUT",
+            headers: headerParameters,
+            query: queryParameters,
+            body: TelegramDeviceRequestToJSON(requestParameters["telegramDeviceRequest"]),
+        };
+    }
+
+    /**
+     * Viewset for Telegram authenticator devices
+     */
+    async authenticatorsTelegramUpdateRaw(
+        requestParameters: AuthenticatorsTelegramUpdateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<TelegramDevice>> {
+        const requestOptions =
+            await this.authenticatorsTelegramUpdateRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) =>
+            TelegramDeviceFromJSON(jsonValue),
+        );
+    }
+
+    /**
+     * Viewset for Telegram authenticator devices
+     */
+    async authenticatorsTelegramUpdate(
+        requestParameters: AuthenticatorsTelegramUpdateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<TelegramDevice> {
+        const response = await this.authenticatorsTelegramUpdateRaw(
+            requestParameters,
+            initOverrides,
+        );
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for authenticatorsTelegramUsedByList without sending the request
+     */
+    async authenticatorsTelegramUsedByListRequestOpts(
+        requestParameters: AuthenticatorsTelegramUsedByListRequest,
+    ): Promise<runtime.RequestOpts> {
+        if (requestParameters["id"] == null) {
+            throw new runtime.RequiredError(
+                "id",
+                'Required parameter "id" was null or undefined when calling authenticatorsTelegramUsedByList().',
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("authentik", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/authenticators/telegram/{id}/used_by/`;
+        urlPath = urlPath.replace("{id}", encodeURIComponent(String(requestParameters["id"])));
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get a list of all objects that use this object
+     */
+    async authenticatorsTelegramUsedByListRaw(
+        requestParameters: AuthenticatorsTelegramUsedByListRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<Array<UsedBy>>> {
+        const requestOptions =
+            await this.authenticatorsTelegramUsedByListRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(UsedByFromJSON));
+    }
+
+    /**
+     * Get a list of all objects that use this object
+     */
+    async authenticatorsTelegramUsedByList(
+        requestParameters: AuthenticatorsTelegramUsedByListRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<Array<UsedBy>> {
+        const response = await this.authenticatorsTelegramUsedByListRaw(
             requestParameters,
             initOverrides,
         );

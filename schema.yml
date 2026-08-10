@@ -1329,6 +1329,163 @@ paths:
           $ref: '#/components/responses/ValidationErrorResponse'
         '403':
           $ref: '#/components/responses/GenericErrorResponse'
+  /authenticators/admin/telegram/:
+    get:
+      operationId: authenticators_admin_telegram_list
+      description: Viewset for Telegram authenticator devices (for admins)
+      parameters:
+      - $ref: '#/components/parameters/QueryName'
+      - $ref: '#/components/parameters/QueryPaginationOrdering'
+      - $ref: '#/components/parameters/QueryPaginationPage'
+      - $ref: '#/components/parameters/QueryPaginationPageSize'
+      - $ref: '#/components/parameters/QuerySearch'
+      tags:
+      - authenticators
+      security:
+      - authentik: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedTelegramDeviceList'
+          description: ''
+        '400':
+          $ref: '#/components/responses/ValidationErrorResponse'
+        '403':
+          $ref: '#/components/responses/GenericErrorResponse'
+    post:
+      operationId: authenticators_admin_telegram_create
+      description: Viewset for Telegram authenticator devices (for admins)
+      tags:
+      - authenticators
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TelegramDeviceRequest'
+        required: true
+      security:
+      - authentik: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TelegramDevice'
+          description: ''
+        '400':
+          $ref: '#/components/responses/ValidationErrorResponse'
+        '403':
+          $ref: '#/components/responses/GenericErrorResponse'
+  /authenticators/admin/telegram/{id}/:
+    get:
+      operationId: authenticators_admin_telegram_retrieve
+      description: Viewset for Telegram authenticator devices (for admins)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Telegram Device.
+        required: true
+      tags:
+      - authenticators
+      security:
+      - authentik: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TelegramDevice'
+          description: ''
+        '400':
+          $ref: '#/components/responses/ValidationErrorResponse'
+        '403':
+          $ref: '#/components/responses/GenericErrorResponse'
+    put:
+      operationId: authenticators_admin_telegram_update
+      description: Viewset for Telegram authenticator devices (for admins)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Telegram Device.
+        required: true
+      tags:
+      - authenticators
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TelegramDeviceRequest'
+        required: true
+      security:
+      - authentik: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TelegramDevice'
+          description: ''
+        '400':
+          $ref: '#/components/responses/ValidationErrorResponse'
+        '403':
+          $ref: '#/components/responses/GenericErrorResponse'
+    patch:
+      operationId: authenticators_admin_telegram_partial_update
+      description: Viewset for Telegram authenticator devices (for admins)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Telegram Device.
+        required: true
+      tags:
+      - authenticators
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedTelegramDeviceRequest'
+      security:
+      - authentik: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TelegramDevice'
+          description: ''
+        '400':
+          $ref: '#/components/responses/ValidationErrorResponse'
+        '403':
+          $ref: '#/components/responses/GenericErrorResponse'
+    delete:
+      operationId: authenticators_admin_telegram_destroy
+      description: Viewset for Telegram authenticator devices (for admins)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Telegram Device.
+        required: true
+      tags:
+      - authenticators
+      security:
+      - authentik: []
+      responses:
+        '204':
+          description: No response body
+        '400':
+          $ref: '#/components/responses/ValidationErrorResponse'
+        '403':
+          $ref: '#/components/responses/GenericErrorResponse'
   /authenticators/admin/totp/:
     get:
       operationId: authenticators_admin_totp_list
@@ -2371,6 +2528,167 @@ paths:
         schema:
           type: integer
         description: A unique integer value identifying this Static Device.
+        required: true
+      tags:
+      - authenticators
+      security:
+      - authentik: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UsedBy'
+          description: ''
+        '400':
+          $ref: '#/components/responses/ValidationErrorResponse'
+        '403':
+          $ref: '#/components/responses/GenericErrorResponse'
+  /authenticators/telegram/:
+    get:
+      operationId: authenticators_telegram_list
+      description: Viewset for Telegram authenticator devices
+      parameters:
+      - $ref: '#/components/parameters/QueryName'
+      - $ref: '#/components/parameters/QueryPaginationOrdering'
+      - $ref: '#/components/parameters/QueryPaginationPage'
+      - $ref: '#/components/parameters/QueryPaginationPageSize'
+      - $ref: '#/components/parameters/QuerySearch'
+      tags:
+      - authenticators
+      security:
+      - authentik: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedTelegramDeviceList'
+          description: ''
+        '400':
+          $ref: '#/components/responses/ValidationErrorResponse'
+        '403':
+          $ref: '#/components/responses/GenericErrorResponse'
+  /authenticators/telegram/{id}/:
+    get:
+      operationId: authenticators_telegram_retrieve
+      description: Viewset for Telegram authenticator devices
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Telegram Device.
+        required: true
+      tags:
+      - authenticators
+      security:
+      - authentik: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TelegramDevice'
+          description: ''
+        '400':
+          $ref: '#/components/responses/ValidationErrorResponse'
+        '403':
+          $ref: '#/components/responses/GenericErrorResponse'
+    put:
+      operationId: authenticators_telegram_update
+      description: Viewset for Telegram authenticator devices
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Telegram Device.
+        required: true
+      tags:
+      - authenticators
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TelegramDeviceRequest'
+        required: true
+      security:
+      - authentik: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TelegramDevice'
+          description: ''
+        '400':
+          $ref: '#/components/responses/ValidationErrorResponse'
+        '403':
+          $ref: '#/components/responses/GenericErrorResponse'
+    patch:
+      operationId: authenticators_telegram_partial_update
+      description: Viewset for Telegram authenticator devices
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Telegram Device.
+        required: true
+      tags:
+      - authenticators
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedTelegramDeviceRequest'
+      security:
+      - authentik: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TelegramDevice'
+          description: ''
+        '400':
+          $ref: '#/components/responses/ValidationErrorResponse'
+        '403':
+          $ref: '#/components/responses/GenericErrorResponse'
+    delete:
+      operationId: authenticators_telegram_destroy
+      description: Viewset for Telegram authenticator devices
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Telegram Device.
+        required: true
+      tags:
+      - authenticators
+      security:
+      - authentik: []
+      responses:
+        '204':
+          description: No response body
+        '400':
+          $ref: '#/components/responses/ValidationErrorResponse'
+        '403':
+          $ref: '#/components/responses/GenericErrorResponse'
+  /authenticators/telegram/{id}/used_by/:
+    get:
+      operationId: authenticators_telegram_used_by_list
+      description: Get a list of all objects that use this object
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Telegram Device.
         required: true
       tags:
       - authenticators
@@ -30128,6 +30446,223 @@ paths:
           $ref: '#/components/responses/ValidationErrorResponse'
         '403':
           $ref: '#/components/responses/GenericErrorResponse'
+  /stages/authenticator/telegram/:
+    get:
+      operationId: stages_authenticator_telegram_list
+      description: AuthenticatorTelegramStage Viewset
+      parameters:
+      - in: query
+        name: bot_token
+        schema:
+          type: string
+      - in: query
+        name: bot_username
+        schema:
+          type: string
+      - in: query
+        name: configure_flow
+        schema:
+          type: string
+          format: uuid
+      - in: query
+        name: friendly_name
+        schema:
+          type: string
+      - in: query
+        name: mapping
+        schema:
+          type: string
+          format: uuid
+      - $ref: '#/components/parameters/QueryName'
+      - $ref: '#/components/parameters/QueryPaginationOrdering'
+      - $ref: '#/components/parameters/QueryPaginationPage'
+      - $ref: '#/components/parameters/QueryPaginationPageSize'
+      - $ref: '#/components/parameters/QuerySearch'
+      - in: query
+        name: stage_uuid
+        schema:
+          type: string
+          format: uuid
+      tags:
+      - stages
+      security:
+      - authentik: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedAuthenticatorTelegramStageList'
+          description: ''
+        '400':
+          $ref: '#/components/responses/ValidationErrorResponse'
+        '403':
+          $ref: '#/components/responses/GenericErrorResponse'
+    post:
+      operationId: stages_authenticator_telegram_create
+      description: AuthenticatorTelegramStage Viewset
+      tags:
+      - stages
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthenticatorTelegramStageRequest'
+        required: true
+      security:
+      - authentik: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthenticatorTelegramStage'
+          description: ''
+        '400':
+          $ref: '#/components/responses/ValidationErrorResponse'
+        '403':
+          $ref: '#/components/responses/GenericErrorResponse'
+  /stages/authenticator/telegram/{stage_uuid}/:
+    get:
+      operationId: stages_authenticator_telegram_retrieve
+      description: AuthenticatorTelegramStage Viewset
+      parameters:
+      - in: path
+        name: stage_uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Telegram Authenticator Setup Stage.
+        required: true
+      tags:
+      - stages
+      security:
+      - authentik: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthenticatorTelegramStage'
+          description: ''
+        '400':
+          $ref: '#/components/responses/ValidationErrorResponse'
+        '403':
+          $ref: '#/components/responses/GenericErrorResponse'
+    put:
+      operationId: stages_authenticator_telegram_update
+      description: AuthenticatorTelegramStage Viewset
+      parameters:
+      - in: path
+        name: stage_uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Telegram Authenticator Setup Stage.
+        required: true
+      tags:
+      - stages
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthenticatorTelegramStageRequest'
+        required: true
+      security:
+      - authentik: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthenticatorTelegramStage'
+          description: ''
+        '400':
+          $ref: '#/components/responses/ValidationErrorResponse'
+        '403':
+          $ref: '#/components/responses/GenericErrorResponse'
+    patch:
+      operationId: stages_authenticator_telegram_partial_update
+      description: AuthenticatorTelegramStage Viewset
+      parameters:
+      - in: path
+        name: stage_uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Telegram Authenticator Setup Stage.
+        required: true
+      tags:
+      - stages
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedAuthenticatorTelegramStageRequest'
+      security:
+      - authentik: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthenticatorTelegramStage'
+          description: ''
+        '400':
+          $ref: '#/components/responses/ValidationErrorResponse'
+        '403':
+          $ref: '#/components/responses/GenericErrorResponse'
+    delete:
+      operationId: stages_authenticator_telegram_destroy
+      description: AuthenticatorTelegramStage Viewset
+      parameters:
+      - in: path
+        name: stage_uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Telegram Authenticator Setup Stage.
+        required: true
+      tags:
+      - stages
+      security:
+      - authentik: []
+      responses:
+        '204':
+          description: No response body
+        '400':
+          $ref: '#/components/responses/ValidationErrorResponse'
+        '403':
+          $ref: '#/components/responses/GenericErrorResponse'
+  /stages/authenticator/telegram/{stage_uuid}/used_by/:
+    get:
+      operationId: stages_authenticator_telegram_used_by_list
+      description: Get a list of all objects that use this object
+      parameters:
+      - in: path
+        name: stage_uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Telegram Authenticator Setup Stage.
+        required: true
+      tags:
+      - stages
+      security:
+      - authentik: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UsedBy'
+          description: ''
+        '400':
+          $ref: '#/components/responses/ValidationErrorResponse'
+        '403':
+          $ref: '#/components/responses/GenericErrorResponse'
   /stages/authenticator/totp/:
     get:
       operationId: stages_authenticator_totp_list
@@ -36104,6 +36639,7 @@ components:
       - authentik.stages.authenticator_email
       - authentik.stages.authenticator_sms
       - authentik.stages.authenticator_static
+      - authentik.stages.authenticator_telegram
       - authentik.stages.authenticator_totp
       - authentik.stages.authenticator_validate
       - authentik.stages.authenticator_webauthn
@@ -37346,6 +37882,153 @@ components:
       required:
       - digits
       - name
+    AuthenticatorTelegramChallenge:
+      type: object
+      description: Telegram Setup challenge
+      properties:
+        flow_info:
+          $ref: '#/components/schemas/ContextualFlowInfo'
+        component:
+          type: string
+          default: ak-stage-authenticator-telegram
+        response_errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/ErrorDetail'
+        pending_user:
+          type: string
+        pending_user_avatar:
+          type: string
+        code_required:
+          type: boolean
+          default: false
+        bot_username:
+          type: string
+      required:
+      - bot_username
+      - pending_user
+      - pending_user_avatar
+    AuthenticatorTelegramChallengeResponseRequest:
+      type: object
+      description: Telegram Challenge response, device is set by get_response_instance
+      properties:
+        id:
+          type: integer
+        first_name:
+          type: string
+          minLength: 1
+          maxLength: 255
+        last_name:
+          type: string
+          minLength: 1
+          maxLength: 255
+        username:
+          type: string
+          minLength: 1
+          maxLength: 255
+        photo_url:
+          type: string
+          format: uri
+          minLength: 1
+        auth_date:
+          type: integer
+        hash:
+          type: string
+          minLength: 1
+          maxLength: 64
+        component:
+          type: string
+          minLength: 1
+          default: ak-stage-authenticator-telegram
+        code:
+          type: string
+          minLength: 1
+      required:
+      - auth_date
+      - hash
+      - id
+    AuthenticatorTelegramStage:
+      type: object
+      description: AuthenticatorTelegramStage Serializer
+      properties:
+        pk:
+          type: string
+          format: uuid
+          readOnly: true
+          title: Stage uuid
+        name:
+          type: string
+        component:
+          type: string
+          description: Get object type so that we know how to edit the object
+          readOnly: true
+        verbose_name:
+          type: string
+          description: Return object's verbose_name
+          readOnly: true
+        verbose_name_plural:
+          type: string
+          description: Return object's plural verbose_name
+          readOnly: true
+        meta_model_name:
+          type: string
+          description: Return internal model name
+          readOnly: true
+        flow_set:
+          type: array
+          items:
+            $ref: '#/components/schemas/FlowSet'
+          readOnly: true
+        configure_flow:
+          type: string
+          format: uuid
+          nullable: true
+          description: Flow used by an authenticated user to configure this Stage.
+            If empty, user will not be able to configure this stage.
+        friendly_name:
+          type: string
+        bot_username:
+          type: string
+          description: Telegram bot username
+      required:
+      - bot_username
+      - component
+      - flow_set
+      - meta_model_name
+      - name
+      - pk
+      - verbose_name
+      - verbose_name_plural
+    AuthenticatorTelegramStageRequest:
+      type: object
+      description: AuthenticatorTelegramStage Serializer
+      properties:
+        name:
+          type: string
+          minLength: 1
+        configure_flow:
+          type: string
+          format: uuid
+          nullable: true
+          description: Flow used by an authenticated user to configure this Stage.
+            If empty, user will not be able to configure this stage.
+        friendly_name:
+          type: string
+        bot_username:
+          type: string
+          minLength: 1
+          description: Telegram bot username
+        bot_token:
+          type: string
+          writeOnly: true
+          minLength: 1
+          description: Telegram bot token
+      required:
+      - bot_token
+      - bot_username
+      - name
     AuthenticatorValidateStage:
       type: object
       description: AuthenticatorValidateStage Serializer
@@ -37427,6 +38110,9 @@ components:
         static_otp_throttling_factor:
           type: number
           format: double
+        telegram_otp_throttling_factor:
+          type: number
+          format: double
       required:
       - component
       - flow_set
@@ -37486,6 +38172,9 @@ components:
           type: number
           format: double
         static_otp_throttling_factor:
+          type: number
+          format: double
+        telegram_otp_throttling_factor:
           type: number
           format: double
       required:
@@ -38371,6 +39060,7 @@ components:
       - $ref: '#/components/schemas/AuthenticatorSMSChallenge'
       - $ref: '#/components/schemas/AuthenticatorStaticChallenge'
       - $ref: '#/components/schemas/AuthenticatorTOTPChallenge'
+      - $ref: '#/components/schemas/AuthenticatorTelegramChallenge'
       - $ref: '#/components/schemas/AuthenticatorValidationChallenge'
       - $ref: '#/components/schemas/AuthenticatorWebAuthnChallenge'
       - $ref: '#/components/schemas/AutosubmitChallenge'
@@ -38404,6 +39094,7 @@ components:
           ak-stage-authenticator-sms: '#/components/schemas/AuthenticatorSMSChallenge'
           ak-stage-authenticator-static: '#/components/schemas/AuthenticatorStaticChallenge'
           ak-stage-authenticator-totp: '#/components/schemas/AuthenticatorTOTPChallenge'
+          ak-stage-authenticator-telegram: '#/components/schemas/AuthenticatorTelegramChallenge'
           ak-stage-authenticator-validate: '#/components/schemas/AuthenticatorValidationChallenge'
           ak-stage-authenticator-webauthn: '#/components/schemas/AuthenticatorWebAuthnChallenge'
           ak-stage-autosubmit: '#/components/schemas/AutosubmitChallenge'
@@ -39320,6 +40011,7 @@ components:
       - duo
       - sms
       - email
+      - telegram
       type: string
     DeviceConnection:
       type: object
@@ -41277,6 +41969,7 @@ components:
       - $ref: '#/components/schemas/AuthenticatorSMSChallengeResponseRequest'
       - $ref: '#/components/schemas/AuthenticatorStaticChallengeResponseRequest'
       - $ref: '#/components/schemas/AuthenticatorTOTPChallengeResponseRequest'
+      - $ref: '#/components/schemas/AuthenticatorTelegramChallengeResponseRequest'
       - $ref: '#/components/schemas/AuthenticatorValidationChallengeResponseRequest'
       - $ref: '#/components/schemas/AuthenticatorWebAuthnChallengeResponseRequest'
       - $ref: '#/components/schemas/AutoSubmitChallengeResponseRequest'
@@ -41306,6 +41999,7 @@ components:
           ak-stage-authenticator-sms: '#/components/schemas/AuthenticatorSMSChallengeResponseRequest'
           ak-stage-authenticator-static: '#/components/schemas/AuthenticatorStaticChallengeResponseRequest'
           ak-stage-authenticator-totp: '#/components/schemas/AuthenticatorTOTPChallengeResponseRequest'
+          ak-stage-authenticator-telegram: '#/components/schemas/AuthenticatorTelegramChallengeResponseRequest'
           ak-stage-authenticator-validate: '#/components/schemas/AuthenticatorValidationChallengeResponseRequest'
           ak-stage-authenticator-webauthn: '#/components/schemas/AuthenticatorWebAuthnChallengeResponseRequest'
           ak-stage-autosubmit: '#/components/schemas/AutoSubmitChallengeResponseRequest'
@@ -45419,6 +46113,8 @@ components:
       - authentik_stages_authenticator_sms.smsdevice
       - authentik_stages_authenticator_static.authenticatorstaticstage
       - authentik_stages_authenticator_static.staticdevice
+      - authentik_stages_authenticator_telegram.authenticatortelegramstage
+      - authentik_stages_authenticator_telegram.telegramdevice
       - authentik_stages_authenticator_totp.authenticatortotpstage
       - authentik_stages_authenticator_totp.totpdevice
       - authentik_stages_authenticator_validate.authenticatorvalidatestage
@@ -47300,6 +47996,21 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AuthenticatorTOTPStage'
+        autocomplete:
+          $ref: '#/components/schemas/Autocomplete'
+      required:
+      - autocomplete
+      - pagination
+      - results
+    PaginatedAuthenticatorTelegramStageList:
+      type: object
+      properties:
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuthenticatorTelegramStage'
         autocomplete:
           $ref: '#/components/schemas/Autocomplete'
       required:
@@ -49241,6 +49952,21 @@ components:
       - autocomplete
       - pagination
       - results
+    PaginatedTelegramDeviceList:
+      type: object
+      properties:
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/TelegramDevice'
+        autocomplete:
+          $ref: '#/components/schemas/Autocomplete'
+      required:
+      - autocomplete
+      - pagination
+      - results
     PaginatedTelegramSourceList:
       type: object
       properties:
@@ -50393,6 +51119,30 @@ components:
           type: string
         digits:
           $ref: '#/components/schemas/DigitsEnum'
+    PatchedAuthenticatorTelegramStageRequest:
+      type: object
+      description: AuthenticatorTelegramStage Serializer
+      properties:
+        name:
+          type: string
+          minLength: 1
+        configure_flow:
+          type: string
+          format: uuid
+          nullable: true
+          description: Flow used by an authenticated user to configure this Stage.
+            If empty, user will not be able to configure this stage.
+        friendly_name:
+          type: string
+        bot_username:
+          type: string
+          minLength: 1
+          description: Telegram bot username
+        bot_token:
+          type: string
+          writeOnly: true
+          minLength: 1
+          description: Telegram bot token
     PatchedAuthenticatorValidateStageRequest:
       type: object
       description: AuthenticatorValidateStage Serializer
@@ -50443,6 +51193,9 @@ components:
           type: number
           format: double
         static_otp_throttling_factor:
+          type: number
+          format: double
+        telegram_otp_throttling_factor:
           type: number
           format: double
     PatchedAuthenticatorWebAuthnStageRequest:
@@ -53749,6 +54502,15 @@ components:
     PatchedTOTPDeviceRequest:
       type: object
       description: Serializer for totp authenticator devices
+      properties:
+        name:
+          type: string
+          minLength: 1
+          description: The human-readable name of this device.
+          maxLength: 64
+    PatchedTelegramDeviceRequest:
+      type: object
+      description: Serializer for Telegram authenticator devices
       properties:
         name:
           type: string
@@ -59639,6 +60401,41 @@ components:
       - auth_date
       - hash
       - id
+    TelegramDevice:
+      type: object
+      description: Serializer for Telegram authenticator devices
+      properties:
+        name:
+          type: string
+          description: The human-readable name of this device.
+          maxLength: 64
+        pk:
+          type: integer
+          readOnly: true
+          title: ID
+        user:
+          allOf:
+          - $ref: '#/components/schemas/PartialUser'
+          readOnly: true
+        chat_id:
+          type: string
+          readOnly: true
+      required:
+      - chat_id
+      - name
+      - pk
+      - user
+    TelegramDeviceRequest:
+      type: object
+      description: Serializer for Telegram authenticator devices
+      properties:
+        name:
+          type: string
+          minLength: 1
+          description: The human-readable name of this device.
+          maxLength: 64
+      required:
+      - name
     TelegramLoginChallenge:
       type: object
       description: Base login challenge for Identification stage

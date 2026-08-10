@@ -25,6 +25,8 @@ pub enum FlowChallengeResponseRequest {
     AkStageAuthenticatorStatic(models::AuthenticatorStaticChallengeResponseRequest),
     #[serde(rename = "ak-stage-authenticator-totp")]
     AkStageAuthenticatorTotp(models::AuthenticatorTotpChallengeResponseRequest),
+    #[serde(rename = "ak-stage-authenticator-telegram")]
+    AkStageAuthenticatorTelegram(models::AuthenticatorTelegramChallengeResponseRequest),
     #[serde(rename = "ak-stage-authenticator-validate")]
     AkStageAuthenticatorValidate(models::AuthenticatorValidationChallengeResponseRequest),
     #[serde(rename = "ak-stage-authenticator-webauthn")]
