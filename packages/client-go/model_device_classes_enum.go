@@ -27,6 +27,7 @@ const (
 	DEVICECLASSESENUM_DUO      DeviceClassesEnum = "duo"
 	DEVICECLASSESENUM_SMS      DeviceClassesEnum = "sms"
 	DEVICECLASSESENUM_EMAIL    DeviceClassesEnum = "email"
+	DEVICECLASSESENUM_TELEGRAM DeviceClassesEnum = "telegram"
 )
 
 // All allowed values of DeviceClassesEnum enum
@@ -37,6 +38,7 @@ var AllowedDeviceClassesEnumEnumValues = []DeviceClassesEnum{
 	"duo",
 	"sms",
 	"email",
+	"telegram",
 }
 
 func (v *DeviceClassesEnum) UnmarshalJSON(src []byte) error {

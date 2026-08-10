@@ -25,6 +25,7 @@ type ChallengeTypes struct {
 	AuthenticatorSMSChallenge        *AuthenticatorSMSChallenge
 	AuthenticatorStaticChallenge     *AuthenticatorStaticChallenge
 	AuthenticatorTOTPChallenge       *AuthenticatorTOTPChallenge
+	AuthenticatorTelegramChallenge   *AuthenticatorTelegramChallenge
 	AuthenticatorValidationChallenge *AuthenticatorValidationChallenge
 	AuthenticatorWebAuthnChallenge   *AuthenticatorWebAuthnChallenge
 	AutosubmitChallenge              *AutosubmitChallenge
@@ -96,6 +97,13 @@ func AuthenticatorStaticChallengeAsChallengeTypes(v *AuthenticatorStaticChalleng
 func AuthenticatorTOTPChallengeAsChallengeTypes(v *AuthenticatorTOTPChallenge) ChallengeTypes {
 	return ChallengeTypes{
 		AuthenticatorTOTPChallenge: v,
+	}
+}
+
+// AuthenticatorTelegramChallengeAsChallengeTypes is a convenience function that returns AuthenticatorTelegramChallenge wrapped in ChallengeTypes
+func AuthenticatorTelegramChallengeAsChallengeTypes(v *AuthenticatorTelegramChallenge) ChallengeTypes {
+	return ChallengeTypes{
+		AuthenticatorTelegramChallenge: v,
 	}
 }
 
@@ -414,6 +422,18 @@ func (dst *ChallengeTypes) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// check if the discriminator value is 'ak-stage-authenticator-telegram'
+	if jsonDict["component"] == "ak-stage-authenticator-telegram" {
+		// try to unmarshal JSON data into AuthenticatorTelegramChallenge
+		err = json.Unmarshal(data, &dst.AuthenticatorTelegramChallenge)
+		if err == nil {
+			return nil // data stored in dst.AuthenticatorTelegramChallenge, return on the first match
+		} else {
+			dst.AuthenticatorTelegramChallenge = nil
+			return fmt.Errorf("failed to unmarshal ChallengeTypes as AuthenticatorTelegramChallenge: %s", err.Error())
+		}
+	}
+
 	// check if the discriminator value is 'ak-stage-authenticator-totp'
 	if jsonDict["component"] == "ak-stage-authenticator-totp" {
 		// try to unmarshal JSON data into AuthenticatorTOTPChallenge
@@ -663,6 +683,10 @@ func (src ChallengeTypes) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.AuthenticatorTOTPChallenge)
 	}
 
+	if src.AuthenticatorTelegramChallenge != nil {
+		return json.Marshal(&src.AuthenticatorTelegramChallenge)
+	}
+
 	if src.AuthenticatorValidationChallenge != nil {
 		return json.Marshal(&src.AuthenticatorValidationChallenge)
 	}
@@ -791,6 +815,10 @@ func (obj *ChallengeTypes) GetActualInstance() interface{} {
 		return obj.AuthenticatorTOTPChallenge
 	}
 
+	if obj.AuthenticatorTelegramChallenge != nil {
+		return obj.AuthenticatorTelegramChallenge
+	}
+
 	if obj.AuthenticatorValidationChallenge != nil {
 		return obj.AuthenticatorValidationChallenge
 	}
@@ -915,6 +943,10 @@ func (obj ChallengeTypes) GetActualInstanceValue() interface{} {
 
 	if obj.AuthenticatorTOTPChallenge != nil {
 		return *obj.AuthenticatorTOTPChallenge
+	}
+
+	if obj.AuthenticatorTelegramChallenge != nil {
+		return *obj.AuthenticatorTelegramChallenge
 	}
 
 	if obj.AuthenticatorValidationChallenge != nil {

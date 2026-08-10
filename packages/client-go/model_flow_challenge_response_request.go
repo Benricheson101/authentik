@@ -24,6 +24,7 @@ type FlowChallengeResponseRequest struct {
 	AuthenticatorSMSChallengeResponseRequest        *AuthenticatorSMSChallengeResponseRequest
 	AuthenticatorStaticChallengeResponseRequest     *AuthenticatorStaticChallengeResponseRequest
 	AuthenticatorTOTPChallengeResponseRequest       *AuthenticatorTOTPChallengeResponseRequest
+	AuthenticatorTelegramChallengeResponseRequest   *AuthenticatorTelegramChallengeResponseRequest
 	AuthenticatorValidationChallengeResponseRequest *AuthenticatorValidationChallengeResponseRequest
 	AuthenticatorWebAuthnChallengeResponseRequest   *AuthenticatorWebAuthnChallengeResponseRequest
 	AutoSubmitChallengeResponseRequest              *AutoSubmitChallengeResponseRequest
@@ -85,6 +86,13 @@ func AuthenticatorStaticChallengeResponseRequestAsFlowChallengeResponseRequest(v
 func AuthenticatorTOTPChallengeResponseRequestAsFlowChallengeResponseRequest(v *AuthenticatorTOTPChallengeResponseRequest) FlowChallengeResponseRequest {
 	return FlowChallengeResponseRequest{
 		AuthenticatorTOTPChallengeResponseRequest: v,
+	}
+}
+
+// AuthenticatorTelegramChallengeResponseRequestAsFlowChallengeResponseRequest is a convenience function that returns AuthenticatorTelegramChallengeResponseRequest wrapped in FlowChallengeResponseRequest
+func AuthenticatorTelegramChallengeResponseRequestAsFlowChallengeResponseRequest(v *AuthenticatorTelegramChallengeResponseRequest) FlowChallengeResponseRequest {
+	return FlowChallengeResponseRequest{
+		AuthenticatorTelegramChallengeResponseRequest: v,
 	}
 }
 
@@ -370,6 +378,18 @@ func (dst *FlowChallengeResponseRequest) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// check if the discriminator value is 'ak-stage-authenticator-telegram'
+	if jsonDict["component"] == "ak-stage-authenticator-telegram" {
+		// try to unmarshal JSON data into AuthenticatorTelegramChallengeResponseRequest
+		err = json.Unmarshal(data, &dst.AuthenticatorTelegramChallengeResponseRequest)
+		if err == nil {
+			return nil // data stored in dst.AuthenticatorTelegramChallengeResponseRequest, return on the first match
+		} else {
+			dst.AuthenticatorTelegramChallengeResponseRequest = nil
+			return fmt.Errorf("failed to unmarshal FlowChallengeResponseRequest as AuthenticatorTelegramChallengeResponseRequest: %s", err.Error())
+		}
+	}
+
 	// check if the discriminator value is 'ak-stage-authenticator-totp'
 	if jsonDict["component"] == "ak-stage-authenticator-totp" {
 		// try to unmarshal JSON data into AuthenticatorTOTPChallengeResponseRequest
@@ -579,6 +599,10 @@ func (src FlowChallengeResponseRequest) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.AuthenticatorTOTPChallengeResponseRequest)
 	}
 
+	if src.AuthenticatorTelegramChallengeResponseRequest != nil {
+		return json.Marshal(&src.AuthenticatorTelegramChallengeResponseRequest)
+	}
+
 	if src.AuthenticatorValidationChallengeResponseRequest != nil {
 		return json.Marshal(&src.AuthenticatorValidationChallengeResponseRequest)
 	}
@@ -691,6 +715,10 @@ func (obj *FlowChallengeResponseRequest) GetActualInstance() interface{} {
 		return obj.AuthenticatorTOTPChallengeResponseRequest
 	}
 
+	if obj.AuthenticatorTelegramChallengeResponseRequest != nil {
+		return obj.AuthenticatorTelegramChallengeResponseRequest
+	}
+
 	if obj.AuthenticatorValidationChallengeResponseRequest != nil {
 		return obj.AuthenticatorValidationChallengeResponseRequest
 	}
@@ -799,6 +827,10 @@ func (obj FlowChallengeResponseRequest) GetActualInstanceValue() interface{} {
 
 	if obj.AuthenticatorTOTPChallengeResponseRequest != nil {
 		return *obj.AuthenticatorTOTPChallengeResponseRequest
+	}
+
+	if obj.AuthenticatorTelegramChallengeResponseRequest != nil {
+		return *obj.AuthenticatorTelegramChallengeResponseRequest
 	}
 
 	if obj.AuthenticatorValidationChallengeResponseRequest != nil {

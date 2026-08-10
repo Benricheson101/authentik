@@ -27,6 +27,8 @@ pub enum ChallengeTypes {
     AkStageAuthenticatorStatic(models::AuthenticatorStaticChallenge),
     #[serde(rename = "ak-stage-authenticator-totp")]
     AkStageAuthenticatorTotp(models::AuthenticatorTotpChallenge),
+    #[serde(rename = "ak-stage-authenticator-telegram")]
+    AkStageAuthenticatorTelegram(models::AuthenticatorTelegramChallenge),
     #[serde(rename = "ak-stage-authenticator-validate")]
     AkStageAuthenticatorValidate(models::AuthenticatorValidationChallenge),
     #[serde(rename = "ak-stage-authenticator-webauthn")]
