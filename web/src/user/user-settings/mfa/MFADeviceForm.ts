@@ -48,6 +48,12 @@ export class MFADeviceForm extends ModelForm<Device, string> {
                     sMSDeviceRequest: device,
                 });
                 break;
+            case "authentik_stages_authenticator_telegram.TelegramDevice":
+                await aki(AuthenticatorsApi).authenticatorsTelegramUpdate({
+                    id: parseInt(this.instance?.pk, 10),
+                    telegramDeviceRequest: device,
+                });
+                break;
             case "authentik_stages_authenticator_totp.TOTPDevice":
                 await aki(AuthenticatorsApi).authenticatorsTotpUpdate({
                     id: parseInt(this.instance?.pk, 10),

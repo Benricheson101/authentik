@@ -95,6 +95,7 @@ export class AuthenticatorValidateStageForm extends BaseStageForm<AuthenticatorV
             [DeviceClassesEnum.Webauthn, msg("WebAuthn Authenticators")],
             [DeviceClassesEnum.Duo, msg("Duo Authenticators")],
             [DeviceClassesEnum.Sms, msg("SMS-based Authenticators")],
+            [DeviceClassesEnum.Telegram, msg("Telegram-based Authenticators")],
             [DeviceClassesEnum.Email, msg("Email-based Authenticators")],
         ];
 

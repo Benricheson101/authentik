@@ -26,6 +26,7 @@ from authentik.stages.authenticator import devices_for_user
 from authentik.stages.authenticator.models import Device
 from authentik.stages.authenticator_email.models import EmailDevice
 from authentik.stages.authenticator_sms.models import SMSDevice
+from authentik.stages.authenticator_telegram.models import TelegramDevice
 from authentik.stages.authenticator_validate.challenge import (
     DeviceChallenge,
     get_challenge_for_device,
@@ -87,7 +88,13 @@ class AuthenticatorValidationChallengeResponse(ChallengeResponse):
     def validate_code(self, code: str) -> str:
         """Validate code-based response, raise error if code isn't allowed"""
         self._challenge_allowed(
-            [DeviceClasses.TOTP, DeviceClasses.STATIC, DeviceClasses.SMS, DeviceClasses.EMAIL]
+            [
+                DeviceClasses.TOTP,
+                DeviceClasses.STATIC,
+                DeviceClasses.SMS,
+                DeviceClasses.EMAIL,
+                DeviceClasses.TELEGRAM,
+            ]
         )
         self.device = validate_challenge_code(code, self.stage, self.stage.get_pending_user())
         return code
@@ -124,6 +131,11 @@ class AuthenticatorValidationChallengeResponse(ChallengeResponse):
         device_class = challenge.get("device_class", "")
         if device_class == "sms":
             devices = SMSDevice.objects.filter(pk=int(challenge.get("device_uid", "0")))
+            if not devices.exists():
+                raise ValidationError("invalid challenge selected")
+            select_challenge(self.stage.request, devices.first())
+        elif device_class == "telegram":
+            devices = TelegramDevice.objects.filter(pk=int(challenge.get("device_uid", "0")))
             if not devices.exists():
                 raise ValidationError("invalid challenge selected")
             select_challenge(self.stage.request, devices.first())

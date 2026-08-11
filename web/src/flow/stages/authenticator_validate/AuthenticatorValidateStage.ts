@@ -59,6 +59,11 @@ const createDevicePickerPropMap = () =>
             label: msg("Traditional authenticator"),
             description: msg("Use a code-based authenticator."),
         },
+        [DeviceClassesEnum.Telegram]: {
+            icon: "fa-paper-plane",
+            label: msg("Telegram"),
+            description: msg("Tokens sent via Telegram."),
+        },
         [DeviceClassesEnum.Static]: {
             icon: "fa-key",
             label: msg("Recovery keys"),
@@ -86,6 +91,7 @@ export function resolveAuthenticatorComponentTag(
 ) {
     switch (deviceClass) {
         case DeviceClassesEnum.Static:
+        case DeviceClassesEnum.Telegram:
         case DeviceClassesEnum.Totp:
         case DeviceClassesEnum.Email:
         case DeviceClassesEnum.Sms:

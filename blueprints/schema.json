@@ -17204,6 +17204,12 @@
                     "minLength": 1,
                     "title": "Bot token",
                     "description": "Telegram bot token"
+                },
+                "mapping": {
+                    "type": "string",
+                    "format": "uuid",
+                    "title": "Mapping",
+                    "description": "Optionally modify the payload being sent to Telegram."
                 }
             },
             "required": []

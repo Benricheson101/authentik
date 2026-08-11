@@ -53,6 +53,8 @@ export class UserDeviceTable extends Table<Device> {
                 return api.authenticatorsAdminEmailDestroy({ id: parseInt(device.pk, 10) });
             case "authentik_stages_authenticator_sms.SMSDevice":
                 return api.authenticatorsAdminSmsDestroy({ id: parseInt(device.pk, 10) });
+            case "authentik_stages_authenticator_telegram.TelegramDevice":
+                return api.authenticatorsAdminTelegramDestroy({ id: parseInt(device.pk, 10) });
             case "authentik_stages_authenticator_totp.TOTPDevice":
                 return api.authenticatorsAdminTotpDestroy({ id: parseInt(device.pk, 10) });
             case "authentik_stages_authenticator_static.StaticDevice":

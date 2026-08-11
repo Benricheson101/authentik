@@ -48,6 +48,12 @@ export interface AuthenticatorTelegramStageRequest {
      * @memberof AuthenticatorTelegramStageRequest
      */
     botToken: string;
+    /**
+     * Optionally modify the payload being sent to Telegram.
+     * @type {string}
+     * @memberof AuthenticatorTelegramStageRequest
+     */
+    mapping?: string | null;
 }
 
 /**
@@ -98,6 +104,12 @@ export function AuthenticatorTelegramStageRequestFromJSONTyped(
         friendlyName: json["friendly_name"] == null ? undefined : json["friendly_name"],
         botUsername: json["bot_username"],
         botToken: json["bot_token"],
+        mapping:
+            json["mapping"] === undefined
+                ? undefined
+                : json["mapping"] === null
+                  ? null
+                  : json["mapping"],
     };
 }
 
@@ -121,5 +133,6 @@ export function AuthenticatorTelegramStageRequestToJSONTyped(
         friendly_name: value["friendlyName"],
         bot_username: value["botUsername"],
         bot_token: value["botToken"],
+        mapping: value["mapping"],
     };
 }

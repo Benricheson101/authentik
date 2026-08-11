@@ -8,7 +8,7 @@ from rest_framework.fields import BooleanField, CharField
 
 from authentik.flows.challenge import Challenge, ChallengeResponse, WithUserInfoChallenge
 from authentik.flows.stage import ChallengeStageView
-from authentik.sources.telegram.telegram import TelegramAuth
+from authentik.sources.telegram.api.source import TelegramAuthSerializer
 from authentik.stages.authenticator_telegram.models import (
     AuthenticatorTelegramStage,
     TelegramDevice,
@@ -25,7 +25,7 @@ class AuthenticatorTelegramChallenge(WithUserInfoChallenge):
     component = CharField(default="ak-stage-authenticator-telegram")
 
 
-class AuthenticatorTelegramChallengeResponse(TelegramAuth, ChallengeResponse):
+class AuthenticatorTelegramChallengeResponse(ChallengeResponse):
     """Telegram Challenge response, device is set by get_response_instance"""
 
     device: TelegramDevice
@@ -34,14 +34,17 @@ class AuthenticatorTelegramChallengeResponse(TelegramAuth, ChallengeResponse):
 
     def validate(self, attrs: dict) -> dict:
         if "code" not in attrs:
-            if "id" not in attrs or "hash" not in attrs:
-                raise ValidationError("Telegram authorization required")
+            widget_auth = TelegramAuthSerializer(
+                bot_token=self.stage.executor.current_stage.bot_token, data=self.initial_data
+            )
 
-            attrs = super().validate(attrs)
-            chat_id = str(attrs["id"])
-            self.stage.validate_and_send(chat_id)
+            widget_auth.is_valid(raise_exception=True)
+            validated = widget_auth.validated_data
+
+            chat_id = str(validated["id"])
             self.device.chat_id = chat_id
-            self.device.telegram_username = attrs.get("username", "")
+            self.stage.validate_and_send(chat_id)
+            self.device.telegram_username = validated.get("username", "")
             return attrs
         if not self.device.verify_token(str(attrs["code"])):
             raise ValidationError(_("Code does not match"))

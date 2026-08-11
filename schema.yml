@@ -37914,30 +37914,6 @@ components:
       type: object
       description: Telegram Challenge response, device is set by get_response_instance
       properties:
-        id:
-          type: integer
-        first_name:
-          type: string
-          minLength: 1
-          maxLength: 255
-        last_name:
-          type: string
-          minLength: 1
-          maxLength: 255
-        username:
-          type: string
-          minLength: 1
-          maxLength: 255
-        photo_url:
-          type: string
-          format: uri
-          minLength: 1
-        auth_date:
-          type: integer
-        hash:
-          type: string
-          minLength: 1
-          maxLength: 64
         component:
           type: string
           minLength: 1
@@ -37945,10 +37921,6 @@ components:
         code:
           type: string
           minLength: 1
-      required:
-      - auth_date
-      - hash
-      - id
     AuthenticatorTelegramStage:
       type: object
       description: AuthenticatorTelegramStage Serializer
@@ -37992,6 +37964,11 @@ components:
         bot_username:
           type: string
           description: Telegram bot username
+        mapping:
+          type: string
+          format: uuid
+          nullable: true
+          description: Optionally modify the payload being sent to Telegram.
       required:
       - bot_username
       - component
@@ -38025,6 +38002,11 @@ components:
           writeOnly: true
           minLength: 1
           description: Telegram bot token
+        mapping:
+          type: string
+          format: uuid
+          nullable: true
+          description: Optionally modify the payload being sent to Telegram.
       required:
       - bot_token
       - bot_username
@@ -51143,6 +51125,11 @@ components:
           writeOnly: true
           minLength: 1
           description: Telegram bot token
+        mapping:
+          type: string
+          format: uuid
+          nullable: true
+          description: Optionally modify the payload being sent to Telegram.
     PatchedAuthenticatorValidateStageRequest:
       type: object
       description: AuthenticatorValidateStage Serializer

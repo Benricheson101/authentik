@@ -124,6 +124,8 @@ export function formatDeviceChallengeMessage(deviceChallenge?: DeviceChallenge |
         }
         case DeviceClassesEnum.Sms:
             return msg("A one-time use code has been sent to you via SMS text message.");
+        case DeviceClassesEnum.Telegram:
+            return msg("A one-time use code has been sent to you via Telegram.");
         case DeviceClassesEnum.Totp:
             return msg("Open your authenticator app to retrieve a one-time use code.");
         case DeviceClassesEnum.Static:

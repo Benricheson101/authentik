@@ -111,6 +111,10 @@ export const StageEntries: readonly StageEntry[] = [
         fetch: () => import("#flow/stages/authenticator_static/AuthenticatorStaticStage"),
     },
     {
+        stage: "ak-stage-authenticator-telegram",
+        fetch: () => import("#flow/stages/authenticator_telegram/AuthenticatorTelegramStage"),
+    },
+    {
         stage: "ak-stage-authenticator-totp",
         fetch: () => import("#flow/stages/authenticator_totp/AuthenticatorTOTPStage"),
     },

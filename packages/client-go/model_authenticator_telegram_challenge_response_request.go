@@ -13,7 +13,6 @@ package api
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the AuthenticatorTelegramChallengeResponseRequest type satisfies the MappedNullable interface at compile time
@@ -21,13 +20,6 @@ var _ MappedNullable = &AuthenticatorTelegramChallengeResponseRequest{}
 
 // AuthenticatorTelegramChallengeResponseRequest Telegram Challenge response, device is set by get_response_instance
 type AuthenticatorTelegramChallengeResponseRequest struct {
-	Id                   int32   `json:"id"`
-	FirstName            *string `json:"first_name,omitempty"`
-	LastName             *string `json:"last_name,omitempty"`
-	Username             *string `json:"username,omitempty"`
-	PhotoUrl             *string `json:"photo_url,omitempty"`
-	AuthDate             int32   `json:"auth_date"`
-	Hash                 string  `json:"hash"`
 	Component            *string `json:"component,omitempty"`
 	Code                 *string `json:"code,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -39,11 +31,8 @@ type _AuthenticatorTelegramChallengeResponseRequest AuthenticatorTelegramChallen
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAuthenticatorTelegramChallengeResponseRequest(id int32, authDate int32, hash string) *AuthenticatorTelegramChallengeResponseRequest {
+func NewAuthenticatorTelegramChallengeResponseRequest() *AuthenticatorTelegramChallengeResponseRequest {
 	this := AuthenticatorTelegramChallengeResponseRequest{}
-	this.Id = id
-	this.AuthDate = authDate
-	this.Hash = hash
 	var component string = "ak-stage-authenticator-telegram"
 	this.Component = &component
 	return &this
@@ -57,206 +46,6 @@ func NewAuthenticatorTelegramChallengeResponseRequestWithDefaults() *Authenticat
 	var component string = "ak-stage-authenticator-telegram"
 	this.Component = &component
 	return &this
-}
-
-// GetId returns the Id field value
-func (o *AuthenticatorTelegramChallengeResponseRequest) GetId() int32 {
-	if o == nil {
-		var ret int32
-		return ret
-	}
-
-	return o.Id
-}
-
-// GetIdOk returns a tuple with the Id field value
-// and a boolean to check if the value has been set.
-func (o *AuthenticatorTelegramChallengeResponseRequest) GetIdOk() (*int32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Id, true
-}
-
-// SetId sets field value
-func (o *AuthenticatorTelegramChallengeResponseRequest) SetId(v int32) {
-	o.Id = v
-}
-
-// GetFirstName returns the FirstName field value if set, zero value otherwise.
-func (o *AuthenticatorTelegramChallengeResponseRequest) GetFirstName() string {
-	if o == nil || IsNil(o.FirstName) {
-		var ret string
-		return ret
-	}
-	return *o.FirstName
-}
-
-// GetFirstNameOk returns a tuple with the FirstName field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AuthenticatorTelegramChallengeResponseRequest) GetFirstNameOk() (*string, bool) {
-	if o == nil || IsNil(o.FirstName) {
-		return nil, false
-	}
-	return o.FirstName, true
-}
-
-// HasFirstName returns a boolean if a field has been set.
-func (o *AuthenticatorTelegramChallengeResponseRequest) HasFirstName() bool {
-	if o != nil && !IsNil(o.FirstName) {
-		return true
-	}
-
-	return false
-}
-
-// SetFirstName gets a reference to the given string and assigns it to the FirstName field.
-func (o *AuthenticatorTelegramChallengeResponseRequest) SetFirstName(v string) {
-	o.FirstName = &v
-}
-
-// GetLastName returns the LastName field value if set, zero value otherwise.
-func (o *AuthenticatorTelegramChallengeResponseRequest) GetLastName() string {
-	if o == nil || IsNil(o.LastName) {
-		var ret string
-		return ret
-	}
-	return *o.LastName
-}
-
-// GetLastNameOk returns a tuple with the LastName field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AuthenticatorTelegramChallengeResponseRequest) GetLastNameOk() (*string, bool) {
-	if o == nil || IsNil(o.LastName) {
-		return nil, false
-	}
-	return o.LastName, true
-}
-
-// HasLastName returns a boolean if a field has been set.
-func (o *AuthenticatorTelegramChallengeResponseRequest) HasLastName() bool {
-	if o != nil && !IsNil(o.LastName) {
-		return true
-	}
-
-	return false
-}
-
-// SetLastName gets a reference to the given string and assigns it to the LastName field.
-func (o *AuthenticatorTelegramChallengeResponseRequest) SetLastName(v string) {
-	o.LastName = &v
-}
-
-// GetUsername returns the Username field value if set, zero value otherwise.
-func (o *AuthenticatorTelegramChallengeResponseRequest) GetUsername() string {
-	if o == nil || IsNil(o.Username) {
-		var ret string
-		return ret
-	}
-	return *o.Username
-}
-
-// GetUsernameOk returns a tuple with the Username field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AuthenticatorTelegramChallengeResponseRequest) GetUsernameOk() (*string, bool) {
-	if o == nil || IsNil(o.Username) {
-		return nil, false
-	}
-	return o.Username, true
-}
-
-// HasUsername returns a boolean if a field has been set.
-func (o *AuthenticatorTelegramChallengeResponseRequest) HasUsername() bool {
-	if o != nil && !IsNil(o.Username) {
-		return true
-	}
-
-	return false
-}
-
-// SetUsername gets a reference to the given string and assigns it to the Username field.
-func (o *AuthenticatorTelegramChallengeResponseRequest) SetUsername(v string) {
-	o.Username = &v
-}
-
-// GetPhotoUrl returns the PhotoUrl field value if set, zero value otherwise.
-func (o *AuthenticatorTelegramChallengeResponseRequest) GetPhotoUrl() string {
-	if o == nil || IsNil(o.PhotoUrl) {
-		var ret string
-		return ret
-	}
-	return *o.PhotoUrl
-}
-
-// GetPhotoUrlOk returns a tuple with the PhotoUrl field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AuthenticatorTelegramChallengeResponseRequest) GetPhotoUrlOk() (*string, bool) {
-	if o == nil || IsNil(o.PhotoUrl) {
-		return nil, false
-	}
-	return o.PhotoUrl, true
-}
-
-// HasPhotoUrl returns a boolean if a field has been set.
-func (o *AuthenticatorTelegramChallengeResponseRequest) HasPhotoUrl() bool {
-	if o != nil && !IsNil(o.PhotoUrl) {
-		return true
-	}
-
-	return false
-}
-
-// SetPhotoUrl gets a reference to the given string and assigns it to the PhotoUrl field.
-func (o *AuthenticatorTelegramChallengeResponseRequest) SetPhotoUrl(v string) {
-	o.PhotoUrl = &v
-}
-
-// GetAuthDate returns the AuthDate field value
-func (o *AuthenticatorTelegramChallengeResponseRequest) GetAuthDate() int32 {
-	if o == nil {
-		var ret int32
-		return ret
-	}
-
-	return o.AuthDate
-}
-
-// GetAuthDateOk returns a tuple with the AuthDate field value
-// and a boolean to check if the value has been set.
-func (o *AuthenticatorTelegramChallengeResponseRequest) GetAuthDateOk() (*int32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.AuthDate, true
-}
-
-// SetAuthDate sets field value
-func (o *AuthenticatorTelegramChallengeResponseRequest) SetAuthDate(v int32) {
-	o.AuthDate = v
-}
-
-// GetHash returns the Hash field value
-func (o *AuthenticatorTelegramChallengeResponseRequest) GetHash() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Hash
-}
-
-// GetHashOk returns a tuple with the Hash field value
-// and a boolean to check if the value has been set.
-func (o *AuthenticatorTelegramChallengeResponseRequest) GetHashOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Hash, true
-}
-
-// SetHash sets field value
-func (o *AuthenticatorTelegramChallengeResponseRequest) SetHash(v string) {
-	o.Hash = v
 }
 
 // GetComponent returns the Component field value if set, zero value otherwise.
@@ -333,21 +122,6 @@ func (o AuthenticatorTelegramChallengeResponseRequest) MarshalJSON() ([]byte, er
 
 func (o AuthenticatorTelegramChallengeResponseRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["id"] = o.Id
-	if !IsNil(o.FirstName) {
-		toSerialize["first_name"] = o.FirstName
-	}
-	if !IsNil(o.LastName) {
-		toSerialize["last_name"] = o.LastName
-	}
-	if !IsNil(o.Username) {
-		toSerialize["username"] = o.Username
-	}
-	if !IsNil(o.PhotoUrl) {
-		toSerialize["photo_url"] = o.PhotoUrl
-	}
-	toSerialize["auth_date"] = o.AuthDate
-	toSerialize["hash"] = o.Hash
 	if !IsNil(o.Component) {
 		toSerialize["component"] = o.Component
 	}
@@ -363,29 +137,6 @@ func (o AuthenticatorTelegramChallengeResponseRequest) ToMap() (map[string]inter
 }
 
 func (o *AuthenticatorTelegramChallengeResponseRequest) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"id",
-		"auth_date",
-		"hash",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varAuthenticatorTelegramChallengeResponseRequest := _AuthenticatorTelegramChallengeResponseRequest{}
 
 	err = json.Unmarshal(data, &varAuthenticatorTelegramChallengeResponseRequest)
@@ -399,13 +150,6 @@ func (o *AuthenticatorTelegramChallengeResponseRequest) UnmarshalJSON(data []byt
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "id")
-		delete(additionalProperties, "first_name")
-		delete(additionalProperties, "last_name")
-		delete(additionalProperties, "username")
-		delete(additionalProperties, "photo_url")
-		delete(additionalProperties, "auth_date")
-		delete(additionalProperties, "hash")
 		delete(additionalProperties, "component")
 		delete(additionalProperties, "code")
 		o.AdditionalProperties = additionalProperties

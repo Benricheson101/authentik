@@ -114,6 +114,8 @@ export class MFADevicesPage extends Table<Device> {
                 return api.authenticatorsEmailDestroy(id);
             case "authentik_stages_authenticator_sms.SMSDevice":
                 return api.authenticatorsSmsDestroy(id);
+            case "authentik_stages_authenticator_telegram.TelegramDevice":
+                return api.authenticatorsTelegramDestroy(id);
             case "authentik_stages_authenticator_totp.TOTPDevice":
                 return api.authenticatorsTotpDestroy(id);
             case "authentik_stages_authenticator_static.StaticDevice":
