@@ -81,6 +81,12 @@ export interface AuthenticatorTelegramStage {
      * @memberof AuthenticatorTelegramStage
      */
     botUsername: string;
+    /**
+     * Optionally modify the payload being sent to Telegram.
+     * @type {string}
+     * @memberof AuthenticatorTelegramStage
+     */
+    mapping?: string | null;
 }
 
 /**
@@ -157,6 +163,12 @@ export function AuthenticatorTelegramStageFromJSONTyped(
                   : json["configure_flow"],
         friendlyName: json["friendly_name"] == null ? undefined : json["friendly_name"],
         botUsername: json["bot_username"],
+        mapping:
+            json["mapping"] === undefined
+                ? undefined
+                : json["mapping"] === null
+                  ? null
+                  : json["mapping"],
     };
 }
 
@@ -180,5 +192,6 @@ export function AuthenticatorTelegramStageToJSONTyped(
         configure_flow: value["configureFlow"],
         friendly_name: value["friendlyName"],
         bot_username: value["botUsername"],
+        mapping: value["mapping"],
     };
 }

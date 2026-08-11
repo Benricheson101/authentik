@@ -14,20 +14,6 @@ use crate::models;
 /// get_response_instance
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AuthenticatorTelegramChallengeResponseRequest {
-    #[serde(rename = "id")]
-    pub id: i32,
-    #[serde(rename = "first_name", skip_serializing_if = "Option::is_none")]
-    pub first_name: Option<String>,
-    #[serde(rename = "last_name", skip_serializing_if = "Option::is_none")]
-    pub last_name: Option<String>,
-    #[serde(rename = "username", skip_serializing_if = "Option::is_none")]
-    pub username: Option<String>,
-    #[serde(rename = "photo_url", skip_serializing_if = "Option::is_none")]
-    pub photo_url: Option<String>,
-    #[serde(rename = "auth_date")]
-    pub auth_date: i32,
-    #[serde(rename = "hash")]
-    pub hash: String,
     #[serde(rename = "component", skip_serializing_if = "Option::is_none")]
     pub component: Option<String>,
     #[serde(rename = "code", skip_serializing_if = "Option::is_none")]
@@ -36,19 +22,8 @@ pub struct AuthenticatorTelegramChallengeResponseRequest {
 
 impl AuthenticatorTelegramChallengeResponseRequest {
     /// Telegram Challenge response, device is set by get_response_instance
-    pub fn new(
-        id: i32,
-        auth_date: i32,
-        hash: String,
-    ) -> AuthenticatorTelegramChallengeResponseRequest {
+    pub fn new() -> AuthenticatorTelegramChallengeResponseRequest {
         AuthenticatorTelegramChallengeResponseRequest {
-            id,
-            first_name: None,
-            last_name: None,
-            username: None,
-            photo_url: None,
-            auth_date,
-            hash,
             component: None,
             code: None,
         }

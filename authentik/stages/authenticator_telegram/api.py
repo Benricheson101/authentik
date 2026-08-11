@@ -21,6 +21,7 @@ class AuthenticatorTelegramStageSerializer(StageSerializer):
             "friendly_name",
             "bot_username",
             "bot_token",
+            "mapping",
         ]
 
         extra_kwargs = {

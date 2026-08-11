@@ -48,6 +48,12 @@ export interface PatchedAuthenticatorTelegramStageRequest {
      * @memberof PatchedAuthenticatorTelegramStageRequest
      */
     botToken?: string;
+    /**
+     * Optionally modify the payload being sent to Telegram.
+     * @type {string}
+     * @memberof PatchedAuthenticatorTelegramStageRequest
+     */
+    mapping?: string | null;
 }
 
 /**
@@ -83,6 +89,12 @@ export function PatchedAuthenticatorTelegramStageRequestFromJSONTyped(
         friendlyName: json["friendly_name"] == null ? undefined : json["friendly_name"],
         botUsername: json["bot_username"] == null ? undefined : json["bot_username"],
         botToken: json["bot_token"] == null ? undefined : json["bot_token"],
+        mapping:
+            json["mapping"] === undefined
+                ? undefined
+                : json["mapping"] === null
+                  ? null
+                  : json["mapping"],
     };
 }
 
@@ -106,5 +118,6 @@ export function PatchedAuthenticatorTelegramStageRequestToJSONTyped(
         friendly_name: value["friendlyName"],
         bot_username: value["botUsername"],
         bot_token: value["botToken"],
+        mapping: value["mapping"],
     };
 }

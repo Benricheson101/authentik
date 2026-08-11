@@ -20,48 +20,6 @@
 export interface AuthenticatorTelegramChallengeResponseRequest {
     /**
      *
-     * @type {number}
-     * @memberof AuthenticatorTelegramChallengeResponseRequest
-     */
-    id: number;
-    /**
-     *
-     * @type {string}
-     * @memberof AuthenticatorTelegramChallengeResponseRequest
-     */
-    firstName?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof AuthenticatorTelegramChallengeResponseRequest
-     */
-    lastName?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof AuthenticatorTelegramChallengeResponseRequest
-     */
-    username?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof AuthenticatorTelegramChallengeResponseRequest
-     */
-    photoUrl?: string;
-    /**
-     *
-     * @type {number}
-     * @memberof AuthenticatorTelegramChallengeResponseRequest
-     */
-    authDate: number;
-    /**
-     *
-     * @type {string}
-     * @memberof AuthenticatorTelegramChallengeResponseRequest
-     */
-    hash: string;
-    /**
-     *
      * @type {string}
      * @memberof AuthenticatorTelegramChallengeResponseRequest
      */
@@ -80,15 +38,6 @@ export interface AuthenticatorTelegramChallengeResponseRequest {
 export function instanceOfAuthenticatorTelegramChallengeResponseRequest(
     value: object,
 ): value is AuthenticatorTelegramChallengeResponseRequest {
-    if (!("id" in value) || value["id"] === undefined) return false;
-    if (
-        (!("authDate" in (value as Record<string, any>)) &&
-            !("auth_date" in (value as Record<string, any>))) ||
-        ((value as Record<string, any>)["authDate"] === undefined &&
-            (value as Record<string, any>)["auth_date"] === undefined)
-    )
-        return false;
-    if (!("hash" in value) || value["hash"] === undefined) return false;
     return true;
 }
 
@@ -106,13 +55,6 @@ export function AuthenticatorTelegramChallengeResponseRequestFromJSONTyped(
         return json;
     }
     return {
-        id: json["id"],
-        firstName: json["first_name"] == null ? undefined : json["first_name"],
-        lastName: json["last_name"] == null ? undefined : json["last_name"],
-        username: json["username"] == null ? undefined : json["username"],
-        photoUrl: json["photo_url"] == null ? undefined : json["photo_url"],
-        authDate: json["auth_date"],
-        hash: json["hash"],
         component: json["component"] == null ? undefined : json["component"],
         code: json["code"] == null ? undefined : json["code"],
     };
@@ -133,13 +75,6 @@ export function AuthenticatorTelegramChallengeResponseRequestToJSONTyped(
     }
 
     return {
-        id: value["id"],
-        first_name: value["firstName"],
-        last_name: value["lastName"],
-        username: value["username"],
-        photo_url: value["photoUrl"],
-        auth_date: value["authDate"],
-        hash: value["hash"],
         component: value["component"],
         code: value["code"],
     };

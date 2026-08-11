@@ -6,6 +6,7 @@ import "#admin/stages/authenticator_duo/AuthenticatorDuoStageForm";
 import "#admin/stages/authenticator_email/AuthenticatorEmailStageForm";
 import "#admin/stages/authenticator_sms/AuthenticatorSMSStageForm";
 import "#admin/stages/authenticator_static/AuthenticatorStaticStageForm";
+import "#admin/stages/authenticator_telegram/AuthenticatorTelegramStageForm";
 import "#admin/stages/authenticator_totp/AuthenticatorTOTPStageForm";
 import "#admin/stages/authenticator_validate/AuthenticatorValidateStageForm";
 import "#admin/stages/authenticator_webauthn/AuthenticatorWebAuthnStageForm";
