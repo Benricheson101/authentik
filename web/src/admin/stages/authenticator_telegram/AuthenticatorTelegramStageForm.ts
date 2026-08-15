@@ -16,6 +16,7 @@ import {
     FlowsApi,
     FlowsInstancesListRequest,
     NotificationWebhookMapping,
+    PatchedAuthenticatorTelegramStageRequest,
     PropertymappingsApi,
     PropertymappingsNotificationListRequest,
     StagesApi,
@@ -35,10 +36,10 @@ export class AuthenticatorTelegramStageForm extends BaseStageForm<AuthenticatorT
 
     async send(data: AuthenticatorTelegramStage): Promise<AuthenticatorTelegramStage> {
         if (this.instance) {
-            return aki(StagesApi).stagesAuthenticatorTelegramUpdate({
+            return aki(StagesApi).stagesAuthenticatorTelegramPartialUpdate({
                 stageUuid: this.instance.pk || "",
-                authenticatorTelegramStageRequest:
-                    data as unknown as AuthenticatorTelegramStageRequest,
+                patchedAuthenticatorTelegramStageRequest:
+                    data as unknown as PatchedAuthenticatorTelegramStageRequest,
             });
         }
         return aki(StagesApi).stagesAuthenticatorTelegramCreate({
